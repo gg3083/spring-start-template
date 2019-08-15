@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.gg3083.template.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="work.gg3083.template.entity.User">
+    <result column="id" property="id" />
+        <result column="login_name" property="loginName" />
+        <result column="real_name" property="realName" />
+        <result column="english_name" property="englishName" />
+        <result column="email" property="email" />
+        <result column="telephone" property="telephone" />
+        <result column="job_no" property="jobNo" />
+        <result column="password" property="password" />
+        <result column="gender" property="gender" />
+        <result column="birth_day" property="birthDay" />
+        <result column="head_img" property="headImg" />
+        <result column="address" property="address" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="delete_status" property="deleteStatus" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        login_name, real_name, english_name, email, telephone, job_no, password, gender, birth_day, head_img, address, create_time, update_time, delete_status
+    </sql>
+
+    <select id="findUserVoByLoginName" resultType="work.gg3083.template.entity.vo.UserVO">
+        select
+            u.id,
+            u.login_name,
+            u.real_name,
+            u.password,
+            r.role_name,
+            r.role_alias
+        from t_user_role ur
+        LEFT JOIN t_user u on ur.user_id = u.id
+        LEFT JOIN t_role r on ur.role_id = r.id
+        where u.login_name = #{0}
+        and u.delete_status = 0
+    </select>
+
+</mapper>

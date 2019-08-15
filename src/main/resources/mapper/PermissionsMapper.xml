@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.gg3083.template.mapper.PermissionsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="work.gg3083.template.entity.Permissions">
+    <result column="id" property="id" />
+        <result column="perm_name" property="permName" />
+        <result column="url" property="url" />
+        <result column="perm_alias" property="permAlias" />
+        <result column="parent_id" property="parentId" />
+        <result column="icon" property="icon" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="delete_status" property="deleteStatus" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        perm_name, url, perm_alias, parent_id, icon, create_time, update_time, delete_status
+    </sql>
+
+    <select id="findPermByLoginName" resultType="work.gg3083.template.entity.Permissions">
+        select
+                p.*
+        from
+            t_user_role ur
+        LEFT JOIN t_user u on ur.user_id = u.id
+        LEFT JOIN t_role r on ur.role_id = r.id
+        LEFT JOIN t_role_perm rp on rp.role_id = r.id
+        LEFT JOIN t_permissions p on rp.perm_id = p.id
+        where u.login_name = #{loginName} and p.delete_status = 0
+    </select>
+</mapper>
