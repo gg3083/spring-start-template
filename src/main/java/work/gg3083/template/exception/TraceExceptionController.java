@@ -34,24 +34,24 @@ public class TraceExceptionController {
 
         JsonBack jsonBack = null;
         Map<String, Object> _err = null;
-        if(exp!=null && exp instanceof GimiException){
-            jsonBack = new JsonBack((GimiException)exp);
+        if(exp!=null && exp instanceof CustomException){
+            jsonBack = new JsonBack((CustomException)exp);
 
         }else if(exp!=null && exp instanceof MissingServletRequestParameterException) {
             String parameterName = ((MissingServletRequestParameterException) exp).getParameterName();
-            jsonBack = new JsonBack(JsonBack.JSON_BACK_FAILED, GimiExceptionType.VALIDATE_ERR.getErrorCode(), "参数" + parameterName + "输入有误", "missing.request.parameter:" + parameterName);
+            jsonBack = new JsonBack(JsonBack.JSON_BACK_FAILED, CustomExceptionType.VALIDATE_ERR.getErrorCode(), "参数" + parameterName + "输入有误", "missing.request.parameter:" + parameterName);
         } else if (exp != null && exp instanceof MethodArgumentNotValidException){
             String errMsg = "请求参数验证失败";
             try {
                 errMsg = ((MethodArgumentNotValidException)exp).getBindingResult().getAllErrors().get(0).getDefaultMessage();
             }catch (Exception e){}
-            jsonBack = new JsonBack(JsonBack.JSON_BACK_FAILED, GimiExceptionType.VALIDATE_ERR.getErrorCode(), errMsg, exp.getMessage());
+            jsonBack = new JsonBack(JsonBack.JSON_BACK_FAILED, CustomExceptionType.VALIDATE_ERR.getErrorCode(), errMsg, exp.getMessage());
         } else{
             String msgVal = null;
             try {
                 msgVal = exp.getCause()==null?exp.getMessage():exp.getCause().getMessage();
             } catch (Exception e) {
-                jsonBack = new JsonBack(JsonBack.JSON_BACK_FAILED, GimiExceptionType.VALIDATE_ERR.getErrorCode(), msgVal, exp.getMessage());
+                jsonBack = new JsonBack(JsonBack.JSON_BACK_FAILED, CustomExceptionType.VALIDATE_ERR.getErrorCode(), msgVal, exp.getMessage());
             }
             logger.error("errorJson.errdata is:{}", JSON.toJSONString(_err));
         }

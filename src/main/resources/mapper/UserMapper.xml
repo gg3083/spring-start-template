@@ -42,4 +42,12 @@
         and u.delete_status = 0
     </select>
 
+    <select id="list4Page" resultType="work.gg3083.template.entity.User">
+        select <include refid="Base_Column_List" />
+        from t_user
+        where delete_status = 0
+        <if test="searchKey != null and searchKey !=''">
+            and real_name like concat(#{searchKey},'%')
+        </if>
+    </select>
 </mapper>

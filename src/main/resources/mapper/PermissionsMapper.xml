@@ -32,4 +32,13 @@
         LEFT JOIN t_permissions p on rp.perm_id = p.id
         where u.login_name = #{loginName} and p.delete_status = 0
     </select>
+
+    <select id="list4Page" resultType="work.gg3083.template.entity.Permissions">
+        select <include refid="Base_Column_List" />
+        from t_permissions
+        where delete_status = 0
+        <if test="searchKey != null and searchKey !=''">
+            and perm_name like concat(#{searchKey},'%')
+        </if>
+    </select>
 </mapper>

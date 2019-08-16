@@ -1,12 +1,19 @@
 package work.gg3083.template.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import work.gg3083.template.commom.Const;
 import work.gg3083.template.entity.User;
 import work.gg3083.template.entity.UserRole;
+import work.gg3083.template.entity.param.UserAddParam;
+import work.gg3083.template.entity.param.UserUpdateParam;
+import work.gg3083.template.entity.vo.PageInfo;
 import work.gg3083.template.entity.vo.UserVO;
+import work.gg3083.template.exception.CustomException;
 import work.gg3083.template.mapper.UserMapper;
 import work.gg3083.template.mapper.UserRoleMapper;
 import work.gg3083.template.service.IUserService;
@@ -51,5 +58,62 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .setRoleId(2)
                 .setUserId(user.getId());
         userRoleMapper.insert(userRole);
+        //TODO 待修改
+    }
+
+    @Override
+    public PageInfo<User> list4Page(Integer pageNo, Integer pageSize, String searchKey) {
+        Page<User> page = new Page<>(pageNo,pageSize);
+        page.setRecords(userMapper.list4Page(searchKey,page));
+        return new PageInfo<>(page);
+    }
+
+    @Override
+    public int add(UserAddParam param) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodePwd = encoder.encode(param.getPassword());
+        User user = new User()
+                .setLoginName(param.getLoginName())
+                .setPassword(encodePwd)
+                .setAddress(param.getAddress())
+                .setBirthDay(param.getBirthDay())
+                .setTelephone(param.getTelephone())
+                .setEmail(param.getEmail())
+                .setEnglishName(param.getEnglishName())
+                .setHeadImg(param.getHeadImg())
+                .setJobNo(param.getJobNo())
+                .setGender(param.getGender());
+        return userMapper.insert(user);
+    }
+
+    @Override
+    public int update(UserUpdateParam param) {
+        if (StringUtils.isEmpty(param.getId())) {
+            throw new CustomException("id不能为空");
+        }
+        User user = new User()
+                .setId(param.getId())
+                .setAddress(param.getAddress())
+                .setBirthDay(param.getBirthDay())
+                .setTelephone(param.getTelephone())
+                .setEmail(param.getEmail())
+                .setEnglishName(param.getEnglishName())
+                .setHeadImg(param.getHeadImg())
+                .setJobNo(param.getJobNo())
+                .setGender(param.getGender());
+        return userMapper.updateById(user);
+    }
+
+    @Override
+    public User get(Integer id) {
+        return this.getById(id);
+    }
+
+    @Override
+    public int delete(Integer id) {
+        User role = new User()
+                .setId(id)
+                .setDeleteStatus(Const.DELETE_STATUS_Y);
+        return userMapper.updateById(role);
     }
 }

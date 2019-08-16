@@ -1,7 +1,9 @@
 package work.gg3083.template.mapper;
 
-import work.gg3083.template.entity.Permissions;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
+import work.gg3083.template.entity.Permissions;
 
 import java.util.List;
 
@@ -16,4 +18,6 @@ import java.util.List;
 public interface PermissionsMapper extends BaseMapper<Permissions> {
 
     List<Permissions> findPermByLoginName(String loginName);
+
+    List<Permissions> list4Page(@Param("searchKey") String searchKey, Page<Permissions> page);
 }

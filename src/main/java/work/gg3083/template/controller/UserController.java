@@ -1,14 +1,15 @@
 package work.gg3083.template.controller;
 
 
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import work.gg3083.template.entity.User;
 import work.gg3083.template.entity.json.JsonBack;
+import work.gg3083.template.entity.param.UserAddParam;
+import work.gg3083.template.entity.param.UserUpdateParam;
+import work.gg3083.template.entity.vo.PageInfo;
 import work.gg3083.template.service.IUserService;
 
 /**
@@ -21,32 +22,37 @@ import work.gg3083.template.service.IUserService;
  */
 @RestController
 @RequestMapping("/user")
+@Api(value="用户控制器", tags={"用户控制器"})
 public class UserController {
 
     @Autowired
     private IUserService userService;
 
-    @PostMapping("login")
-    @ApiOperation("登录")
-    @ApiImplicitParams ({
-        @ApiImplicitParam(paramType="query", name = "loginName", value = "账号", required = true, dataType = "String"),
-        @ApiImplicitParam(paramType="query", name = "password", value = "密码", required = true, dataType = "String")
-    })
-    public JsonBack login(String loginName,String password){
-        return JsonBack.buildSuccJson(new Object());
+    @GetMapping("list")
+    public JsonBack<PageInfo<User>> list(@RequestParam(name = "pageNo",defaultValue = "1") Integer pageNo,
+                                         @RequestParam(name = "pageSize",defaultValue = "10") Integer pageSize,
+                                         String searchKey){
+        return JsonBack.buildSuccJson(userService.list4Page(pageNo,pageSize,searchKey));
     }
 
-    @PostMapping("register")
-    @ApiOperation("注册")
-    @ApiImplicitParams ({
-        @ApiImplicitParam(paramType="query", name = "loginName", value = "账号", required = true, dataType = "String"),
-        @ApiImplicitParam(paramType="query", name = "password", value = "密码", required = true, dataType = "String")
-    })
-    public JsonBack register(String loginName,String password){
-        userService.register( loginName , password );
-        return JsonBack.buildSuccJson();
+    @PostMapping("add")
+    public JsonBack add(@RequestBody @Validated UserAddParam param){
+        return JsonBack.buildSuccJson(userService.add(param));
     }
 
+    @PostMapping("update")
+    public JsonBack update(@RequestBody @Validated UserUpdateParam param){
+        return JsonBack.buildSuccJson(userService.update(param));
+    }
 
+    @GetMapping("get")
+    public JsonBack<User> get(@RequestParam Integer id){
+        return JsonBack.buildSuccJson(userService.get(id));
+    }
+
+    @PostMapping("delete")
+    public JsonBack delete(@RequestParam Integer id){
+        return JsonBack.buildSuccJson(userService.delete(id));
+    }
 }
 

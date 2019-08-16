@@ -1,22 +1,22 @@
 package work.gg3083.template.entity.json;
 
 import lombok.Data;
-import work.gg3083.template.exception.GimiException;
-import work.gg3083.template.exception.GimiExceptionType;
+import work.gg3083.template.exception.CustomException;
+import work.gg3083.template.exception.CustomExceptionType;
 
 /**
  * @author Gimi
  * @date 2019/6/8 11:44
  */
 @Data
-public class JsonBack {
+public class JsonBack<T> {
     private int code;   //0成功 1失败
 
     private String errorCode;   //错误码
 
     private String message;
 
-    private Object obj;
+    private T obj;
 
     public static final int JSON_BACK_SUCCESS = 0;
     public static final int JSON_BACK_FAILED = 1;
@@ -25,14 +25,14 @@ public class JsonBack {
         this.code = JSON_BACK_SUCCESS;
     }
 
-    public JsonBack(int code, String errorCode, String message, Object obj) {
+    public JsonBack(int code, String errorCode, String message, T obj) {
         this.code = code;
         this.errorCode = errorCode;
         this.message = message;
         this.obj = obj;
     }
 
-    public JsonBack(GimiException e) {
+    public JsonBack(CustomException e) {
         this.code = JSON_BACK_FAILED;
         this.errorCode = e.getErrorCode();
         this.message = e.getErrorMessage();
@@ -41,28 +41,28 @@ public class JsonBack {
 
     public void buildErrorJsonBack(String msg) {
         setCode(JSON_BACK_FAILED);
-        setErrorCode(GimiExceptionType.SYSTEM_ERROR.getErrorCode());
+        setErrorCode(CustomExceptionType.SYSTEM_ERROR.getErrorCode());
         setMessage(msg);
     }
 
     public void buildErrorJsonBack() {
         setCode(JSON_BACK_FAILED);
-        setErrorCode(GimiExceptionType.SYSTEM_ERROR.getErrorCode());
-        setMessage(GimiExceptionType.SYSTEM_ERROR.getMessage());
+        setErrorCode(CustomExceptionType.SYSTEM_ERROR.getErrorCode());
+        setMessage(CustomExceptionType.SYSTEM_ERROR.getMessage());
     }
 
-    public void buildErrorJsonBack(GimiExceptionType type) {
+    public void buildErrorJsonBack(CustomExceptionType type) {
         setCode(JSON_BACK_FAILED);
         setErrorCode(type.getErrorCode());
         setMessage(type.getMessage());
     }
 
-    public void buildSuccJsonBack(Object obj) {
+    public void buildSuccJsonBack(T obj) {
         setCode(JSON_BACK_SUCCESS);
         setObj(obj);
     }
 
-    public void buildSuccJsonBack(Object obj, String msg) {
+    public void buildSuccJsonBack(T obj, String msg) {
         setCode(JSON_BACK_SUCCESS);
         setObj(obj);
         setMessage(msg);
@@ -81,19 +81,19 @@ public class JsonBack {
     }
 
     public static JsonBack buildErrorJson(String msg) {
-        return new JsonBack(JSON_BACK_FAILED, GimiExceptionType.SYSTEM_ERROR.getErrorCode(), msg, null);
+        return new JsonBack(JSON_BACK_FAILED, CustomExceptionType.SYSTEM_ERROR.getErrorCode(), msg, null);
     }
-    public static JsonBack buildErrorJson(GimiExceptionType type) {
+    public static JsonBack buildErrorJson(CustomExceptionType type) {
         return new JsonBack(JSON_BACK_FAILED, type.getErrorCode(), type.getMessage(), null);
     }
 
-    public static JsonBack buildErrorJson(GimiException e) {
+    public static JsonBack buildErrorJson(CustomException e) {
         return new JsonBack(JSON_BACK_FAILED, e.getErrorCode(), e.getMessage(), null);
     }
 
 
     public static JsonBack buildErrorJson(Object obj, String msg) {
-        return new JsonBack(JSON_BACK_FAILED, GimiExceptionType.SYSTEM_ERROR.getErrorCode(), msg, obj);
+        return new JsonBack(JSON_BACK_FAILED, CustomExceptionType.SYSTEM_ERROR.getErrorCode(), msg, obj);
     }
 
 

@@ -2,6 +2,9 @@ package work.gg3083.template.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import work.gg3083.template.entity.Permissions;
+import work.gg3083.template.entity.param.PermAddParam;
+import work.gg3083.template.entity.param.PermUpdateParam;
+import work.gg3083.template.entity.vo.PageInfo;
 
 import java.util.List;
 
@@ -16,4 +19,14 @@ import java.util.List;
 public interface IPermissionsService extends IService<Permissions> {
 
     List<Permissions> findPermByLoginName(String loginName);
+
+    PageInfo<Permissions> list4Page(Integer pageNo, Integer pageSize, String searchKey);
+
+    int update(PermUpdateParam param);
+
+    int add(PermAddParam param);
+
+    Permissions get(Integer id);
+
+    int delete(Integer id);
 }

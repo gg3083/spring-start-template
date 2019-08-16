@@ -18,4 +18,13 @@
         role_name, role_alias, create_time, update_time, delete_status
     </sql>
 
+    <select id="list4Page" resultType="work.gg3083.template.entity.Role">
+        select <include refid="Base_Column_List" />
+        from t_role
+        where delete_status = 0
+        <if test="searchKey != null and searchKey !=''">
+            and role_name like concat(#{searchKey},'%')
+        </if>
+    </select>
+
 </mapper>

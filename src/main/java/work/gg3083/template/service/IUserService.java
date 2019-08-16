@@ -2,6 +2,9 @@ package work.gg3083.template.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import work.gg3083.template.entity.User;
+import work.gg3083.template.entity.param.UserAddParam;
+import work.gg3083.template.entity.param.UserUpdateParam;
+import work.gg3083.template.entity.vo.PageInfo;
 import work.gg3083.template.entity.vo.UserVO;
 
 /**
@@ -19,4 +22,14 @@ public interface IUserService extends IService<User> {
     UserVO findUserVoByLoginName(String loginName);
 
     void register(String loginName,String password);
+
+    PageInfo<User> list4Page(Integer pageNo, Integer pageSize, String searchKey);
+
+    int add(UserAddParam param);
+
+    int update(UserUpdateParam param);
+
+    User get(Integer id);
+
+    int delete(Integer id);
 }

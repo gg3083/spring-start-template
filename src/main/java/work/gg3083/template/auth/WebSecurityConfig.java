@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private String[] noAuthResrources = {
+            "/**/*",
             "/login",
             "/v2/api-docs",
             "/swagger*/**",

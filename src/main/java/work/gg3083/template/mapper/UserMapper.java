@@ -1,8 +1,12 @@
 package work.gg3083.template.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
 import work.gg3083.template.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import work.gg3083.template.entity.vo.UserVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +19,6 @@ import work.gg3083.template.entity.vo.UserVO;
 public interface UserMapper extends BaseMapper<User> {
 
     UserVO findUserVoByLoginName(String loginName);
+
+    List<User> list4Page(@Param("searchKey") String searchKey, Page<User> page);
 }
