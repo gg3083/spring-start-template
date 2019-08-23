@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import work.gg3083.template.commom.Const;
 import work.gg3083.template.component.JwtHelper;
 import work.gg3083.template.entity.json.JsonBack;
 import work.gg3083.template.entity.vo.UserVO;
@@ -27,11 +28,13 @@ public class TokenController {
 
     @GetMapping("get")
     public JsonBack getToken(String loginName){
-        HashMap hashMap = new HashMap();
-        UserVO userVO = userService.findUserVoByLoginName(loginName);
-        if (userVO == null )return JsonBack.buildErrorJson("账户名不存在");
-        hashMap.put("subName",userVO.getId());
-        String token = jwtHelper.createToken(hashMap);
+        HashMap map = new HashMap();
+        UserVO userVo = userService.findUserVoByLoginName(loginName);
+        if (userVo == null )return JsonBack.buildErrorJson("账户名不存在");
+        map.put(Const.ID,userVo.getId());
+        map.put(Const.LOGIN_NAME,userVo.getLoginName());
+        map.put(Const.ROLE_ALIAS,userVo.getRoleAlias());
+        String token = jwtHelper.createToken(map);
         return JsonBack.buildSuccJson(token);
     }
 }

@@ -24,10 +24,10 @@ public class LoginController {
     @PostMapping("login")
     @ApiOperation("登录")
     @ApiImplicitParams ({
-            @ApiImplicitParam(paramType="query", name = "loginName", value = "账号", required = true, dataType = "String"),
+            @ApiImplicitParam(paramType="query", name = "username", value = "账号", required = true, dataType = "String"),
             @ApiImplicitParam(paramType="query", name = "password", value = "密码", required = true, dataType = "String")
     })
-    public JsonBack login(String loginName, String password){
+    public JsonBack login(String username, String password){
         return JsonBack.buildSuccJson(new Object());
     }
 
@@ -39,6 +39,13 @@ public class LoginController {
     })
     public JsonBack register(String loginName,String password){
         userService.register( loginName , password );
+        return JsonBack.buildSuccJson();
+    }
+
+
+    @PostMapping("/logout")
+    @ApiOperation("退出登录")
+    public JsonBack logout(){
         return JsonBack.buildSuccJson();
     }
 }

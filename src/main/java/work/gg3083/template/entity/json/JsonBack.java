@@ -67,7 +67,9 @@ public class JsonBack<T> {
         setObj(obj);
         setMessage(msg);
     }
-
+    public static JsonBack buildSuccJson(String msg) {
+        return new JsonBack(JSON_BACK_SUCCESS,null,msg,"");
+    }
     public static JsonBack buildSuccJson() {
         return new JsonBack(JSON_BACK_SUCCESS,null,"","");
     }
@@ -76,7 +78,7 @@ public class JsonBack<T> {
         return new JsonBack(JSON_BACK_SUCCESS, null, "", obj);
     }
 
-    public static JsonBack buildSuccJson(Object obj, String msg) {
+    public static JsonBack buildSuccJson( String msg,Object obj) {
         return new JsonBack(JSON_BACK_SUCCESS, null, msg, obj);
     }
 

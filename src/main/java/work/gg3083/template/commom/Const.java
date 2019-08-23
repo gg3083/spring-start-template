@@ -8,4 +8,7 @@ public class Const {
 
     public static final Integer DELETE_STATUS_N = 0;//未删除
     public static final Integer DELETE_STATUS_Y = 1; //已删除
+    public static final String ID = "id";
+    public static final String LOGIN_NAME = "loginName";
+    public static final String ROLE_ALIAS = "roleAlias";
 }

@@ -101,13 +101,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(successLoginHandler) // 自定义登录成功处理
                 .and()
                 .logout()
-                .logoutUrl("/logout")
+                .logoutUrl("/user/logout")
                 .logoutSuccessHandler(successLogoutHandler)
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/user/login") // 自定义登录路径
-                .usernameParameter("loginName")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 .and()
                 .authorizeRequests()// 对请求授权

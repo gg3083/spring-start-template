@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
+import work.gg3083.template.entity.json.JsonBack;
+import work.gg3083.template.util.json.JsonUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +29,6 @@ public class SuccessLogoutHandler implements LogoutSuccessHandler {
         log.debug("logout:success");
         httpServletResponse.setStatus(HttpStatus.OK.value());
         httpServletResponse.setContentType("application/json;charset=UTF-8");
-        httpServletResponse.getWriter().write("{\"auth\":\"success\"}");
+        httpServletResponse.getWriter().write(JsonUtil.beanToJson(JsonBack.buildSuccJson("退出成功")));
     }
 }
