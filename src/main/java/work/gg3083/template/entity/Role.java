@@ -1,13 +1,12 @@
 package work.gg3083.template.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.apache.ibatis.type.JdbcType;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -31,6 +30,7 @@ public class Role implements Serializable {
 
     @ApiModelProperty(value = "主键")
     @TableField("id")
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     @ApiModelProperty(value = "角色名称")

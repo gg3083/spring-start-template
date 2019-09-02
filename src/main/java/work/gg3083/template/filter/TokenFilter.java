@@ -1,6 +1,7 @@
 package work.gg3083.template.filter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import work.gg3083.template.component.JwtHelper;
 
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@Component
+@Component
 // 定义filterName 和过滤的url
 @WebFilter(filterName = "TokenFilter" ,urlPatterns = "/*")
 public class TokenFilter extends OncePerRequestFilter {
