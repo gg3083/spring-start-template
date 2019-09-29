@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import work.gg3083.template.commom.Const;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -78,7 +79,7 @@ public class JwtHelper {
             String token = auth.substring( auth.indexOf(".")+1,auth.lastIndexOf("."));
             String json = new String ( Base64.getDecoder().decode( token) , "UTF-8" );
             JSONObject object = JSONObject.parseObject( json );
-            userName = object.get("name").toString();
+            userName = object.get(Const.LOGIN_NAME).toString();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

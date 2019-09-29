@@ -62,9 +62,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
     @Override
     public int delete(Integer id) {
-        Role role = new Role()
-                .setId(id)
-                .setDeleteStatus(Const.DELETE_STATUS_Y);
-        return roleMapper.updateById(role);
+        return roleMapper.deleteById(id);
     }
 }
