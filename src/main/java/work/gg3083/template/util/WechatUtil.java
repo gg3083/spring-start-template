@@ -14,8 +14,8 @@ import work.gg3083.template.entity.json.JsonBack;
  * @author Gimi
  * @date 2019/8/20 9:26
  */
-@RestController
-@RequestMapping("/api")
+//@RestController
+//@RequestMapping("/api")
 public class WechatUtil {
 
     @Autowired

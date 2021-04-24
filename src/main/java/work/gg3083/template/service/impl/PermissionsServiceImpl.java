@@ -5,12 +5,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import work.gg3083.template.commom.Const;
+import work.gg3083.template.commom.CommonConst;
 import work.gg3083.template.entity.Permissions;
 import work.gg3083.template.entity.param.PermAddParam;
 import work.gg3083.template.entity.param.PermUpdateParam;
 import work.gg3083.template.entity.vo.PageInfo;
-import work.gg3083.template.exception.CustomException;
+import work.gg3083.template.exception.MyException;
 import work.gg3083.template.mapper.PermissionsMapper;
 import work.gg3083.template.service.IPermissionsService;
 
@@ -45,7 +45,7 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper, Permi
     @Override
     public int update(PermUpdateParam param) {
         if (StringUtils.isEmpty(param.getId())) {
-            throw new CustomException("ID不能为空");
+            throw new MyException("ID不能为空");
         }
         Permissions permissions = new Permissions()
                 .setId(param.getId())
@@ -76,7 +76,7 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper, Permi
     public int delete(Integer id) {
         Permissions permissions = new Permissions()
                 .setId(id)
-                .setDeleteStatus(Const.DELETE_STATUS_Y);
+                .setDeleteStatus(CommonConst.DELETE_STATUS_Y);
         return permissionsMapper.updateById(permissions);
     }
 }

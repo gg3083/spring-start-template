@@ -1,10 +1,11 @@
 package work.gg3083.template.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import work.gg3083.template.commom.Const;
+import work.gg3083.template.commom.CommonConst;
 import work.gg3083.template.component.JwtHelper;
 import work.gg3083.template.entity.json.JsonBack;
 import work.gg3083.template.entity.vo.UserVO;
@@ -18,6 +19,7 @@ import java.util.HashMap;
  */
 @RestController
 @RequestMapping("/token")
+@Api(value="Token控制器", tags={"用户相关"})
 public class TokenController {
 
     @Autowired
@@ -28,12 +30,12 @@ public class TokenController {
 
     @GetMapping("get")
     public JsonBack getToken(String loginName){
-        HashMap map = new HashMap();
+        HashMap<String, Object> map = new HashMap();
         UserVO userVo = userService.findUserVoByLoginName(loginName);
         if (userVo == null )return JsonBack.buildErrorJson("账户名不存在");
-        map.put(Const.ID,userVo.getId());
-        map.put(Const.LOGIN_NAME,userVo.getLoginName());
-        map.put(Const.ROLE_ALIAS,userVo.getRoleAlias());
+        map.put(CommonConst.ID,userVo.getId());
+        map.put(CommonConst.LOGIN_NAME,userVo.getLoginName());
+        map.put(CommonConst.ROLE_ALIAS,userVo.getRoleAlias());
         String token = jwtHelper.createToken(map);
         return JsonBack.buildSuccJson(token);
     }

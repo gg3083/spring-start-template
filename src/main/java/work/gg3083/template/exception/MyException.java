@@ -4,32 +4,32 @@ package work.gg3083.template.exception;
  * @author Gimi
  * @date 2019/6/8 12:18
  */
-public class CustomException extends RuntimeException{
+public class MyException extends RuntimeException{
 
     private static final long serialVersionUID = 1L;
 
-    private String errorCode = CustomExceptionType.SYSTEM_ERROR.getErrorCode();
+    private String errorCode = MyExceptionType.SYSTEM_ERROR.getErrorCode();
 
-    private String errorMessage = CustomExceptionType.SYSTEM_ERROR.getMessage();
+    private String errorMessage = MyExceptionType.SYSTEM_ERROR.getMessage();
 
-    public CustomException(CustomExceptionType type, Throwable cause) {
+    public MyException(MyExceptionType type, Throwable cause) {
         super(type.getMessage(), cause);
         this.errorCode = type.getErrorCode();
         this.errorMessage = type.getMessage();
     }
 
-    public CustomException(CustomExceptionType type) {
+    public MyException(MyExceptionType type) {
         super(type.getMessage());
         this.errorCode = type.getErrorCode();
         this.errorMessage = type.getMessage();
     }
 
-    public CustomException(String errorMessage) {
+    public MyException(String errorMessage) {
         super(errorMessage);
         this.errorMessage = errorMessage;
     }
 
-    public CustomException(String errorCode, String errorMessage) {
+    public MyException(String errorCode, String errorMessage) {
         super(errorMessage);
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
@@ -39,22 +39,22 @@ public class CustomException extends RuntimeException{
         return errorCode;
     }
 
-    public CustomException() {
+    public MyException() {
         super();
     }
 
-    public CustomException(String errorCode, Throwable cause) {
+    public MyException(String errorCode, Throwable cause) {
         super(errorCode, cause);
         this.errorCode = errorCode;
     }
 
-    public CustomException(String errorCode, String errorMessage, Throwable cause) {
+    public MyException(String errorCode, String errorMessage, Throwable cause) {
         super(errorCode, cause);
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
     }
 
-    public CustomException(Throwable cause) {
+    public MyException(Throwable cause) {
         super(cause);
     }
 

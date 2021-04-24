@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import work.gg3083.template.commom.Const;
+import work.gg3083.template.commom.CommonConst;
 import work.gg3083.template.entity.User;
 import work.gg3083.template.entity.UserRole;
 import work.gg3083.template.entity.param.UserAddParam;
 import work.gg3083.template.entity.param.UserUpdateParam;
 import work.gg3083.template.entity.vo.PageInfo;
 import work.gg3083.template.entity.vo.UserVO;
-import work.gg3083.template.exception.CustomException;
+import work.gg3083.template.exception.MyException;
 import work.gg3083.template.mapper.UserMapper;
 import work.gg3083.template.mapper.UserRoleMapper;
 import work.gg3083.template.service.IUserService;
@@ -48,6 +48,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public void register(String loginName, String password) {
+        if (findUserVoByLoginName(loginName) != null){
+            throw new MyException("用户名重复！");
+        }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodePwd = encoder.encode(password);
         User user = new User()
@@ -89,7 +92,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public int update(UserUpdateParam param) {
         if (StringUtils.isEmpty(param.getId())) {
-            throw new CustomException("id不能为空");
+            throw new MyException("id不能为空");
         }
         User user = new User()
                 .setId(param.getId())
@@ -113,7 +116,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public int delete(Integer id) {
         User role = new User()
                 .setId(id)
-                .setDeleteStatus(Const.DELETE_STATUS_Y);
+                .setDeleteStatus(CommonConst.DELETE_STATUS_Y);
         return userMapper.updateById(role);
     }
 }

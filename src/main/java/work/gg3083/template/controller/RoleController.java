@@ -22,14 +22,14 @@ import work.gg3083.template.service.IRoleService;
  */
 @RestController
 @RequestMapping("/role")
-@Api(value="角色控制器", tags={"角色控制器"})
+@Api(value="角色", tags={"用户相关"})
 public class RoleController {
 
     @Autowired
     private IRoleService roleService;
 
     @GetMapping("list")
-    public JsonBack<PageInfo<Role>> list(@RequestParam(name = "pageNo",defaultValue = "1") Integer pageNo,
+    public JsonBack list(@RequestParam(name = "pageNo",defaultValue = "1") Integer pageNo,
                                    @RequestParam(name = "pageSize",defaultValue = "10") Integer pageSize,
                                    String searchKey){
         return JsonBack.buildSuccJson(roleService.list4Page(pageNo,pageSize,searchKey));
@@ -46,7 +46,7 @@ public class RoleController {
     }
 
     @GetMapping("get")
-    public JsonBack<Role> get(@RequestParam Integer id){
+    public JsonBack get(@RequestParam Integer id){
         return JsonBack.buildSuccJson(roleService.get(id));
     }
 

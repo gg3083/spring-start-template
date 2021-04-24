@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import work.gg3083.template.commom.Const;
+import work.gg3083.template.commom.CommonConst;
 import work.gg3083.template.component.JwtHelper;
 import work.gg3083.template.entity.json.JsonBack;
 import work.gg3083.template.entity.vo.UserVO;
@@ -40,14 +40,14 @@ public class SuccessLoginHandler implements AuthenticationSuccessHandler {
         log.info("auth-pass");
 
         UserVO userVo = userService.findUserVoByLoginName(authentication.getName());
-        HashMap map = new HashMap();
-        map.put(Const.ID,userVo.getId());
-        map.put(Const.LOGIN_NAME,userVo.getLoginName());
-        map.put(Const.ROLE_ALIAS,userVo.getRoleAlias());
+        HashMap<String, Object> map = new HashMap();
+        map.put(CommonConst.ID,userVo.getId());
+        map.put(CommonConst.LOGIN_NAME,userVo.getLoginName());
+        map.put(CommonConst.ROLE_ALIAS,userVo.getRoleAlias());
         String token = helper.createToken(map);
         userVo.setToken(token);
         httpServletResponse.setStatus(HttpStatus.OK.value());
         httpServletResponse.setContentType("application/json;charset=UTF-8");
-        httpServletResponse.getWriter().write(JsonUtil.beanToJson(JsonBack.buildSuccJson("登录成功",userVo)));
+        httpServletResponse.getWriter().write(JsonUtil.beanToJson(JsonBack.buildSuccJson(userVo, "登录成功")));
     }
 }

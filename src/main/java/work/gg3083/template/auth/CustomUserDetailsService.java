@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import work.gg3083.template.entity.vo.UserVO;
-import work.gg3083.template.exception.CustomException;
+import work.gg3083.template.exception.MyException;
 import work.gg3083.template.service.IUserService;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String loginName){
         UserVO userVo = userService.findUserVoByLoginName(loginName);
         if ( userVo == null) {
-            throw new CustomException("用户不存在");
+            throw new MyException("用户不存在");
         }
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(userVo.getRoleAlias()));

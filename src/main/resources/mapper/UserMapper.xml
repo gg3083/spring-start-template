@@ -4,21 +4,21 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="work.gg3083.template.entity.User">
-    <result column="id" property="id" />
-        <result column="login_name" property="loginName" />
-        <result column="real_name" property="realName" />
-        <result column="english_name" property="englishName" />
-        <result column="email" property="email" />
-        <result column="telephone" property="telephone" />
-        <result column="job_no" property="jobNo" />
-        <result column="password" property="password" />
-        <result column="gender" property="gender" />
-        <result column="birth_day" property="birthDay" />
-        <result column="head_img" property="headImg" />
-        <result column="address" property="address" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="delete_status" property="deleteStatus" />
+        <result column="id" property="id"/>
+        <result column="login_name" property="loginName"/>
+        <result column="real_name" property="realName"/>
+        <result column="english_name" property="englishName"/>
+        <result column="email" property="email"/>
+        <result column="telephone" property="telephone"/>
+        <result column="job_no" property="jobNo"/>
+        <result column="password" property="password"/>
+        <result column="gender" property="gender"/>
+        <result column="birth_day" property="birthDay"/>
+        <result column="head_img" property="headImg"/>
+        <result column="address" property="address"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_status" property="deleteStatus"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -43,7 +43,8 @@
     </select>
 
     <select id="list4Page" resultType="work.gg3083.template.entity.User">
-        select <include refid="Base_Column_List" />
+        select
+        <include refid="Base_Column_List"/>
         from t_user
         where delete_status = 0
         <if test="searchKey != null and searchKey !=''">

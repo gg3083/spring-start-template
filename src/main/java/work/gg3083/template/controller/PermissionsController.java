@@ -22,7 +22,7 @@ import work.gg3083.template.service.IPermissionsService;
  */
 @RestController
 @RequestMapping("/permissions")
-@Api(value="权限控制器", tags={"权限控制器"})
+@Api(value="权限", tags={"用户相关"})
 public class PermissionsController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class PermissionsController {
     }
 
     @GetMapping("list")
-    public JsonBack<PageInfo<Permissions>> list(@RequestParam(name = "pageNo",defaultValue = "1") Integer pageNo,
+    public JsonBack list(@RequestParam(name = "pageNo",defaultValue = "1") Integer pageNo,
                                                 @RequestParam(name = "pageSize",defaultValue = "10") Integer pageSize,
                                                 String searchKey){
         return JsonBack.buildSuccJson(permissionsService.list4Page(pageNo,pageSize,searchKey));
@@ -51,7 +51,7 @@ public class PermissionsController {
     }
 
     @GetMapping("get")
-    public JsonBack<Permissions> get(@RequestParam Integer id){
+    public JsonBack get(@RequestParam Integer id){
         return JsonBack.buildSuccJson(permissionsService.get(id));
     }
 

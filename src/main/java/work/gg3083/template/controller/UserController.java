@@ -22,14 +22,14 @@ import work.gg3083.template.service.IUserService;
  */
 @RestController
 @RequestMapping("/user")
-@Api(value="用户控制器", tags={"用户控制器"})
+@Api(value="用户控制器", tags={"用户相关"})
 public class UserController {
 
     @Autowired
     private IUserService userService;
 
     @GetMapping("list")
-    public JsonBack<PageInfo<User>> list(@RequestParam(name = "pageNo",defaultValue = "1") Integer pageNo,
+    public JsonBack list(@RequestParam(name = "pageNo",defaultValue = "1") Integer pageNo,
                                          @RequestParam(name = "pageSize",defaultValue = "10") Integer pageSize,
                                          String searchKey){
         return JsonBack.buildSuccJson(userService.list4Page(pageNo,pageSize,searchKey));
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("get")
-    public JsonBack<User> get(@RequestParam Integer id){
+    public JsonBack get(@RequestParam Integer id){
         return JsonBack.buildSuccJson(userService.get(id));
     }
 

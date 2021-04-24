@@ -1,5 +1,6 @@
 package work.gg3083.template.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +17,7 @@ import work.gg3083.template.service.IUserService;
  */
 @RestController
 @RequestMapping("/user")
+@Api(value="登录", tags={"用户相关"})
 public class LoginController {
 
     @Autowired

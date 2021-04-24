@@ -5,12 +5,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import work.gg3083.template.commom.Const;
 import work.gg3083.template.entity.Role;
 import work.gg3083.template.entity.param.RoleAddParam;
 import work.gg3083.template.entity.param.RoleUpdateParam;
 import work.gg3083.template.entity.vo.PageInfo;
-import work.gg3083.template.exception.CustomException;
+import work.gg3083.template.exception.MyException;
 import work.gg3083.template.mapper.RoleMapper;
 import work.gg3083.template.service.IRoleService;
 
@@ -39,7 +38,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Override
     public int update(RoleUpdateParam param) {
         if (StringUtils.isEmpty(param.getId())) {
-            throw new CustomException("ID不能为空");
+            throw new MyException("ID不能为空");
         }
         Role role = new Role()
                 .setId(param.getId())
