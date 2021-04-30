@@ -119,4 +119,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .setDeleteStatus(CommonConst.DELETE_STATUS_Y);
         return userMapper.updateById(role);
     }
+
+    @Override
+    public UserVO findUserVoByUserId(String id) {
+        return userMapper.findUserVoByUserId(id);
+    }
 }

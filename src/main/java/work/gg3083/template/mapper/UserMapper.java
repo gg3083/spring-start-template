@@ -20,5 +20,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     UserVO findUserVoByLoginName(String loginName);
 
+    UserVO findUserVoByUserId(String userId);
+
     List<User> list4Page(@Param("searchKey") String searchKey, Page<User> page);
 }

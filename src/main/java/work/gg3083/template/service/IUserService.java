@@ -32,4 +32,6 @@ public interface IUserService extends IService<User> {
     User get(Integer id);
 
     int delete(Integer id);
+
+    UserVO findUserVoByUserId(String id);
 }

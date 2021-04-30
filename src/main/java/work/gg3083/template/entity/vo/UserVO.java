@@ -15,4 +15,5 @@ public class UserVO {
     private String roleName;
     private String roleAlias;
     private String token;
+    private String authentication;
 }

@@ -47,7 +47,11 @@ public class SuccessLoginHandler implements AuthenticationSuccessHandler {
         String token = helper.createToken(map);
         userVo.setToken(token);
         httpServletResponse.setStatus(HttpStatus.OK.value());
+        userVo.setAuthentication(JsonUtil.beanToJson(authentication));
         httpServletResponse.setContentType("application/json;charset=UTF-8");
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+        httpServletResponse.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type,Authorization");
+        httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
         httpServletResponse.getWriter().write(JsonUtil.beanToJson(JsonBack.buildSuccJson(userVo, "登录成功")));
     }
 }

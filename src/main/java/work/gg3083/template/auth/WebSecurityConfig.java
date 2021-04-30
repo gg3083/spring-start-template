@@ -3,10 +3,12 @@ package work.gg3083.template.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +18,8 @@ import work.gg3083.template.auth.handler.AccessDeniedAuthHandler;
 import work.gg3083.template.auth.handler.FailLoginHandler;
 import work.gg3083.template.auth.handler.SuccessLoginHandler;
 import work.gg3083.template.auth.handler.SuccessLogoutHandler;
+import work.gg3083.template.commom.AuthConst;
+import work.gg3083.template.filter.TokenFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -34,18 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AccessDeniedAuthHandler accessDeniedAuthenticationHandler;
 
 
-    private String[] noAuthResources = {
-//            "/**/*",
-            "/login",
-            "/v2/api-docs",
-            "/swagger*/**",
-            "/**/*.js",
-            "/**/*.css",
-            "/**/*.png",
-            "/favicon.ico",
-            "/user/login",
-            "/user/register",
-    };
 
     /**
      * 注入身份管理器bean
@@ -111,14 +103,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .and()
                 .authorizeRequests()// 对请求授权
-                .antMatchers(noAuthResources).permitAll()// 这些页面不需要身份认证
+                .antMatchers(AuthConst.NO_AUTH_RESOURCES).permitAll()// 这些页面不需要身份认证
                 .antMatchers("/api/**")
                 .access("@authPreCheckEvaluatorImpl2.check(authentication)")
                 .anyRequest()//其他请求需要认证
                 .authenticated().and().exceptionHandling()
                 .accessDeniedHandler(accessDeniedAuthenticationHandler)
                 .and()
+                .addFilter(new TokenFilter(authenticationManager()))
                 .csrf().disable();// 禁用跨站攻击
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        //对于在header里面增加token等类似情况，放行所有OPTIONS请求。
+        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
     }
 
 }

@@ -41,6 +41,20 @@
         where u.login_name = #{0}
         and u.delete_status = 0
     </select>
+    <select id="findUserVoByUserId" resultType="work.gg3083.template.entity.vo.UserVO">
+        select
+            u.id,
+            u.login_name,
+            u.real_name,
+            u.password,
+            r.role_name,
+            r.role_alias
+        from t_user_role ur
+        LEFT JOIN t_user u on ur.user_id = u.id
+        LEFT JOIN t_role r on ur.role_id = r.id
+        where u.id = #{0}
+        and u.delete_status = 0
+    </select>
 
     <select id="list4Page" resultType="work.gg3083.template.entity.User">
         select

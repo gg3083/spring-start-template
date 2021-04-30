@@ -29,6 +29,9 @@ public class SuccessLogoutHandler implements LogoutSuccessHandler {
         log.debug("logout:success");
         httpServletResponse.setStatus(HttpStatus.OK.value());
         httpServletResponse.setContentType("application/json;charset=UTF-8");
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+        httpServletResponse.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type,Authorization");
+        httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
         httpServletResponse.getWriter().write(JsonUtil.beanToJson(JsonBack.buildSuccJson("退出成功")));
     }
 }

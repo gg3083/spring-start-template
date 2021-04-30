@@ -6,10 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import work.gg3083.template.commom.CommonConst;
 import work.gg3083.template.entity.User;
 import work.gg3083.template.entity.enums.TokenVerifyEnum;
 import work.gg3083.template.entity.json.JsonBack;
+import work.gg3083.template.entity.vo.UserVO;
 import work.gg3083.template.exception.MyExceptionType;
 import work.gg3083.template.service.IUserService;
 
@@ -27,6 +30,7 @@ import java.util.Map;
  * @date 2020-10-19 17:30
  */
 @Component
+@Order(-1)
 public class JwtHelper {
 
     private  static final Logger logger = LoggerFactory.getLogger(JwtHelper.class);
@@ -45,6 +49,9 @@ public class JwtHelper {
      */
     @Value("${jwt.expiresTime}")
     private long expires;
+
+    public JwtHelper(){
+    }
 
     public String createToken(HashMap<String,Object> map) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -68,27 +75,21 @@ public class JwtHelper {
         return builder.compact();
     }
 
-    public JsonBack buildToken(User User){
-        if (User == null){
-            return JsonBack.buildErrorJson(MyExceptionType.SYSTEM_ERROR);
-        }
-        HashMap hashMap = new HashMap();
-        hashMap.put("id", User.getId());
-        String token = createToken(hashMap);
-        HashMap map = new HashMap();
-        map.put("id", User.getId());
-        map.put("loginName", User.getLoginName());
-        map.put("token",token);
-        return JsonBack.buildSuccJson(map);
+
+    public String buildToken(Object id, Object loginName, Object role){
+        HashMap<String, Object> map = new HashMap();
+        map.put(CommonConst.ID, id);
+        map.put(CommonConst.LOGIN_NAME, loginName);
+        map.put(CommonConst.ROLE_ALIAS, role);
+        String token = this.createToken(map);
+        return token;
     }
 
-    public String generateToken(User User){
-        if (User == null){
+    public String generateToken(UserVO user){
+        if (user == null){
             return null;
         }
-        HashMap hashMap = new HashMap();
-        hashMap.put("id", User.getId());
-        return createToken(hashMap);
+        return buildToken(user.getId(), user.getLoginName(), user.getRoleAlias());
     }
 
     public TokenVerifyEnum validationToken(String jsonWebToken) {

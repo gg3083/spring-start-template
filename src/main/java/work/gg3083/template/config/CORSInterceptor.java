@@ -14,6 +14,8 @@ public class CORSInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        log.info("Interceptor current request url: {}", request.getRequestURI());
+
         return true;
     }
 
@@ -25,6 +27,8 @@ public class CORSInterceptor implements HandlerInterceptor {
         //自定义的请求头Authorization
         response.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type,Authorization");
         response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
+        response.setHeader("filter", "afterCompletion");
+
 
     }
 
