@@ -73,10 +73,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public int add(UserAddParam param) {
+        if (StringUtils.isEmpty(param.getPassword())){
+            param.setPassword(CommonConst.DEFAULT_PASSWORD);
+        }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodePwd = encoder.encode(param.getPassword());
         User user = new User()
                 .setLoginName(param.getLoginName())
+                .setRealName(param.getRealName())
                 .setPassword(encodePwd)
                 .setAddress(param.getAddress())
                 .setBirthDay(param.getBirthDay())

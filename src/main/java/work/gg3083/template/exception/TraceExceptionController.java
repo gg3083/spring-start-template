@@ -24,7 +24,7 @@ import java.util.Map;
  *
  ***/
 @Configuration
-@RestControllerAdvice("com.douba.games")
+@RestControllerAdvice("work.gg3083.template")
 public class TraceExceptionController extends ResponseEntityExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(TraceExceptionController.class);
 

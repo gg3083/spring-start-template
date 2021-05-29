@@ -43,7 +43,7 @@ public class UserAddParam implements Serializable {
     private String jobNo;
 
     @ApiModelProperty(value = "登录密码")
-    @NotNull(message = "登录密码不能为空")
+//    @NotNull(message = "登录密码不能为空")
     private String password;
 
     @ApiModelProperty(value = "性别=={\"0\":\"男\",\"1\":\"女\"}")
