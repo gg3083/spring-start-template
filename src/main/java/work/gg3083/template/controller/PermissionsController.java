@@ -21,7 +21,7 @@ import work.gg3083.template.service.IPermissionsService;
  * @since 2019-08-15
  */
 @RestController
-@RequestMapping("/permissions")
+@RequestMapping("/permission")
 @Api(value="权限", tags={"用户相关"})
 public class PermissionsController {
 
@@ -37,7 +37,7 @@ public class PermissionsController {
     public JsonBack list(@RequestParam(name = "pageNo",defaultValue = "1") Integer pageNo,
                                                 @RequestParam(name = "pageSize",defaultValue = "10") Integer pageSize,
                                                 String searchKey){
-        return JsonBack.buildSuccJson(permissionsService.list4Page(pageNo,pageSize,searchKey));
+        return JsonBack.buildSuccJson(permissionsService.list(pageNo,pageSize,searchKey));
     }
 
     @PostMapping("add")
@@ -45,9 +45,9 @@ public class PermissionsController {
         return JsonBack.buildSuccJson(permissionsService.add(param));
     }
 
-    @PostMapping("update")
-    public JsonBack update(@RequestBody @Validated PermUpdateParam param){
-        return JsonBack.buildSuccJson(permissionsService.update(param));
+    @PostMapping("/update/{id}")
+    public JsonBack update(@PathVariable Integer id, @RequestBody @Validated PermUpdateParam param){
+        return JsonBack.buildSuccJson(permissionsService.update(id, param));
     }
 
     @GetMapping("get")
@@ -55,8 +55,8 @@ public class PermissionsController {
         return JsonBack.buildSuccJson(permissionsService.get(id));
     }
 
-    @PostMapping("delete")
-    public JsonBack delete(@RequestParam Integer id){
+    @PostMapping("/delete/{id}")
+    public JsonBack delete(@PathVariable Integer id){
         return JsonBack.buildSuccJson(permissionsService.delete(id));
     }
 }

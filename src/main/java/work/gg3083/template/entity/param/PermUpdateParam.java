@@ -21,8 +21,8 @@ public class PermUpdateParam implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "主键")
-    private Integer id;
+//    @ApiModelProperty(value = "主键")
+//    private Integer id;
 
     @ApiModelProperty(value = "权限名称")
     private String permName;
@@ -35,6 +35,10 @@ public class PermUpdateParam implements Serializable {
 
     @ApiModelProperty(value = "图标")
     private String icon;
+
+    @ApiModelProperty(value = "权限简称例如 system:index:main")
+//    @NotBlank(message = "权限简称不能为空")
+    private String permAlias;
 
 
 

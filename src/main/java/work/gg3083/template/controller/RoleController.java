@@ -40,9 +40,9 @@ public class RoleController {
         return JsonBack.buildSuccJson(roleService.add(param));
     }
 
-    @PostMapping("update")
-    public JsonBack update(@RequestBody @Validated RoleUpdateParam param){
-        return JsonBack.buildSuccJson(roleService.update(param));
+    @PostMapping("/update/{id}")
+    public JsonBack update(@PathVariable Integer id, @RequestBody @Validated RoleUpdateParam param){
+        return JsonBack.buildSuccJson(roleService.update(id, param));
     }
 
     @GetMapping("get")
@@ -50,8 +50,8 @@ public class RoleController {
         return JsonBack.buildSuccJson(roleService.get(id));
     }
 
-    @PostMapping("delete")
-    public JsonBack delete(@RequestParam Integer id){
+    @PostMapping("/delete/{id}")
+    public JsonBack delete(@PathVariable Integer id){
         return JsonBack.buildSuccJson(roleService.delete(id));
     }
 }

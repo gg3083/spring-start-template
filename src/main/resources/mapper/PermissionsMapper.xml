@@ -33,7 +33,7 @@
         where u.login_name = #{loginName} and p.delete_status = 0
     </select>
 
-    <select id="list4Page" resultType="work.gg3083.template.entity.Permissions">
+    <select id="list" resultType="work.gg3083.template.entity.Permissions">
         select <include refid="Base_Column_List" />
         from t_permissions
         where delete_status = 0

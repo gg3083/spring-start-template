@@ -27,7 +27,7 @@ public class PermissionsServiceTest extends QuickStartApplicationTests {
 
     @Test
     public void list4page(){
-        PageInfo<Permissions> page = permissionsService.list4Page( pageNo,pageSize,searchKey);
+        PageInfo<Permissions> page = permissionsService.list( pageNo,pageSize,searchKey);
         System.err.println(page);
         System.err.println("-------------------");
         page.getData().forEach( s -> System.err.println(s));

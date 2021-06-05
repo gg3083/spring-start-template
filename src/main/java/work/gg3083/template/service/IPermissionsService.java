@@ -20,9 +20,9 @@ public interface IPermissionsService extends IService<Permissions> {
 
     List<Permissions> findPermByLoginName(String loginName);
 
-    PageInfo<Permissions> list4Page(Integer pageNo, Integer pageSize, String searchKey);
+    PageInfo<Permissions> list(Integer pageNo, Integer pageSize, String searchKey);
 
-    int update(PermUpdateParam param);
+    int update(Integer id, PermUpdateParam param);
 
     int add(PermAddParam param);
 

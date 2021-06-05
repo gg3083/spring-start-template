@@ -19,5 +19,5 @@ public interface PermissionsMapper extends BaseMapper<Permissions> {
 
     List<Permissions> findPermByLoginName(String loginName);
 
-    List<Permissions> list4Page(@Param("searchKey") String searchKey, Page<Permissions> page);
+    List<Permissions> list(@Param("searchKey") String searchKey);
 }

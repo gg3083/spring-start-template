@@ -18,7 +18,7 @@ public interface IRoleService extends IService<Role> {
 
     int add(RoleAddParam param);
 
-    int update(RoleUpdateParam param);
+    int update(Integer id, RoleUpdateParam param);
 
     Role get(Integer id);
 

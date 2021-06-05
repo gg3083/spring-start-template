@@ -23,10 +23,6 @@ public class UserUpdateParam implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "ID")
-    @NotNull(message = "id不能为空")
-    private Integer id;
-
     @ApiModelProperty(value = "姓名")
     private String realName;
 

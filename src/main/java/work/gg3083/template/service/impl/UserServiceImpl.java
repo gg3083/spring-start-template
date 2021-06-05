@@ -94,12 +94,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public int update(UserUpdateParam param) {
-        if (StringUtils.isEmpty(param.getId())) {
-            throw new MyException("id不能为空");
-        }
+    public int update(Integer id, UserUpdateParam param) {
+
         User user = new User()
-                .setId(param.getId())
+                .setId(id)
                 .setAddress(param.getAddress())
                 .setBirthDay(param.getBirthDay())
                 .setTelephone(param.getTelephone())
@@ -107,6 +105,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .setEnglishName(param.getEnglishName())
                 .setHeadImg(param.getHeadImg())
                 .setJobNo(param.getJobNo())
+                .setRealName(param.getRealName())
                 .setGender(param.getGender());
         return userMapper.updateById(user);
     }
@@ -118,10 +117,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public int delete(Integer id) {
-        User role = new User()
-                .setId(id)
-                .setDeleteStatus(CommonConst.DELETE_STATUS_Y);
-        return userMapper.updateById(role);
+        return userMapper.deleteById(id);
     }
 
     @Override

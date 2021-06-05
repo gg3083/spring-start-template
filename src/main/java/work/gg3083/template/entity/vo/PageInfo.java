@@ -31,4 +31,11 @@ public class PageInfo<T>{
         this.data = page.getRecords();
     }
 
+    public PageInfo(List<T> page){
+        this.pageNo = 1;
+        this.pageSize = page.size();
+        this.totals = page.size();
+        this.data = page;
+    }
+
 }

@@ -27,7 +27,7 @@ public interface IUserService extends IService<User> {
 
     int add(UserAddParam param);
 
-    int update(UserUpdateParam param);
+    int update(Integer id, UserUpdateParam param);
 
     User get(Integer id);
 

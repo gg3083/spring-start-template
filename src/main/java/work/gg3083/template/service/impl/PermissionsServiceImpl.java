@@ -36,22 +36,21 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper, Permi
     }
 
     @Override
-    public PageInfo<Permissions> list4Page(Integer pageNo, Integer pageSize, String searchKey) {
-        Page<Permissions> page = new Page<>(pageNo,pageSize);
-        page.setRecords(permissionsMapper.list4Page(searchKey,page));
-        return new PageInfo<>(page);
+    public PageInfo<Permissions> list(Integer pageNo, Integer pageSize, String searchKey) {
+//        Page<Permissions> page = new Page<>(pageNo,pageSize);
+        List<Permissions> list = permissionsMapper.list(searchKey);
+        return new PageInfo<>(list);
     }
 
     @Override
-    public int update(PermUpdateParam param) {
-        if (StringUtils.isEmpty(param.getId())) {
-            throw new MyException("ID不能为空");
-        }
+    public int update(Integer id, PermUpdateParam param) {
+
         Permissions permissions = new Permissions()
-                .setId(param.getId())
+                .setId(id)
                 .setIcon(param.getIcon())
                 .setPermName(param.getPermName())
                 .setParentId(param.getParentId())
+                .setPermAlias(param.getPermAlias())
                 .setUrl(param.getUrl());
         return permissionsMapper.updateById(permissions);
     }
@@ -74,9 +73,7 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper, Permi
 
     @Override
     public int delete(Integer id) {
-        Permissions permissions = new Permissions()
-                .setId(id)
-                .setDeleteStatus(CommonConst.DELETE_STATUS_Y);
-        return permissionsMapper.updateById(permissions);
+
+        return permissionsMapper.deleteById(id);
     }
 }

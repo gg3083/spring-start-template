@@ -21,10 +21,10 @@ import java.io.Serializable;
 public class RoleUpdateParam implements Serializable {
 
     private static final long serialVersionUID=1L;
-
-    @ApiModelProperty(value = "ID")
-    @NotNull(message = "ID")
-    private Integer id;
+//
+//    @ApiModelProperty(value = "ID")
+//    @NotNull(message = "ID")
+//    private Integer id;
 
     @ApiModelProperty(value = "角色名称")
     @NotNull(message = "角色名称不能为空")

@@ -53,9 +53,9 @@ public class UserController {
         return JsonBack.buildSuccJson(userService.add(param));
     }
 
-    @PostMapping("update")
-    public JsonBack update(@RequestBody @Validated UserUpdateParam param){
-        return JsonBack.buildSuccJson(userService.update(param));
+    @PostMapping("/update/{id}")
+    public JsonBack update(@PathVariable Integer id, @RequestBody @Validated UserUpdateParam param){
+        return JsonBack.buildSuccJson(userService.update(id, param));
     }
 
     @GetMapping("/")
@@ -79,8 +79,8 @@ public class UserController {
         return JsonBack.buildErrorJson(MyExceptionType.TOKEN_FAIL);
     }
 
-    @PostMapping("delete")
-    public JsonBack delete(@RequestParam Integer id){
+    @PostMapping("/delete/{id}")
+    public JsonBack delete(@PathVariable Integer id){
         return JsonBack.buildSuccJson(userService.delete(id));
     }
 }

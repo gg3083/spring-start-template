@@ -30,11 +30,11 @@ public class PermAddParam implements Serializable {
     private String url;
 
     @ApiModelProperty(value = "权限简称例如 system:index:main")
-    @NotBlank(message = "权限简称不能为空")
+//    @NotBlank(message = "权限简称不能为空")
     private String permAlias;
 
     @ApiModelProperty(value = "父级Id")
-    @NotBlank(message = "父级Id不能为空")
+//    @NotBlank(message = "父级Id不能为空")
     private Integer parentId;
 
     @ApiModelProperty(value = "图标")

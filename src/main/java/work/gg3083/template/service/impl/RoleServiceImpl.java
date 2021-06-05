@@ -36,12 +36,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     }
 
     @Override
-    public int update(RoleUpdateParam param) {
-        if (StringUtils.isEmpty(param.getId())) {
-            throw new MyException("ID不能为空");
-        }
+    public int update(Integer id, RoleUpdateParam param) {
+
         Role role = new Role()
-                .setId(param.getId())
+                .setId(id)
                 .setRoleName(param.getRoleName())
                 .setRoleAlias(param.getRoleAlias());
         return roleMapper.updateById(role);
