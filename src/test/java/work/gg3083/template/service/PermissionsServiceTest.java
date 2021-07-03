@@ -3,7 +3,9 @@ package work.gg3083.template.service;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import work.gg3083.template.QuickStartApplicationTests;
+import work.gg3083.template.controller.RoleController;
 import work.gg3083.template.entity.Permissions;
+import work.gg3083.template.entity.param.RoleAddParam;
 import work.gg3083.template.entity.vo.PageInfo;
 import work.gg3083.template.mapper.PermissionsMapper;
 
@@ -37,5 +39,19 @@ public class PermissionsServiceTest extends QuickStartApplicationTests {
     public void findPermByLoginName(){
         List<Permissions> page = permissionsService.findPermByLoginName(searchKey);
         System.err.println( page );
+    }
+
+    @Autowired
+    private RoleController roleController;
+
+    @Test
+    public void roleAdd(){
+        for (int i = 1; i < 101; i++) {
+            RoleAddParam param = new RoleAddParam();
+            param.setRoleAlias(i+"_");
+            param.setRoleName("_"+i);
+            roleController.add(param);
+
+        }
     }
 }

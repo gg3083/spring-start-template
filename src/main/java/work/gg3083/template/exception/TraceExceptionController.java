@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -56,6 +57,9 @@ public class TraceExceptionController extends ResponseEntityExceptionHandler {
         }else if(exp!=null && exp instanceof MissingServletRequestParameterException) {
             String parameterName = ((MissingServletRequestParameterException) exp).getParameterName();
             jsonBack = new JsonBack(JsonBack.JSON_BACK_FAILED, MyExceptionType.VALIDATE_ERR.getErrorCode(), "参数" + parameterName + "输入有误", "missing.request.parameter:" + parameterName);
+        }else if(exp!=null && exp instanceof HttpMessageNotReadableException) {
+            String msg = ((HttpMessageNotReadableException) exp).getMessage();
+            jsonBack = new JsonBack(JsonBack.JSON_BACK_FAILED, MyExceptionType.VALIDATE_ERR.getErrorCode(), msg, msg);
         } else if (exp != null && exp instanceof MethodArgumentNotValidException){
             String errMsg = "请求参数验证失败";
             try {

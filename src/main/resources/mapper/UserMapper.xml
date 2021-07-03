@@ -39,7 +39,7 @@
         LEFT JOIN t_user u on ur.user_id = u.id
         LEFT JOIN t_role r on ur.role_id = r.id
         where u.login_name = #{0}
-        and u.delete_status = 0
+        and ur.delete_status = 0
     </select>
     <select id="findUserVoByUserId" resultType="work.gg3083.template.entity.vo.UserVO">
         select
@@ -53,17 +53,24 @@
         LEFT JOIN t_user u on ur.user_id = u.id
         LEFT JOIN t_role r on ur.role_id = r.id
         where u.id = #{0}
-        and u.delete_status = 0
+        and ur.delete_status = 0
     </select>
 
-    <select id="list4Page" resultType="work.gg3083.template.entity.User">
+    <select id="list4Page" resultType="work.gg3083.template.entity.vo.UserAdminVO">
         select
-        <include refid="Base_Column_List"/>
-        from t_user
-        where delete_status = 0
+        u.id,
+        r.id as roleId,
+        login_name, real_name, english_name, email, telephone, job_no, password, gender, birth_day, head_img, address,
+        u.create_time, u.update_time, u.delete_status,
+        r.role_name,
+        r.role_alias
+        from t_user_role ur
+        LEFT JOIN t_user u on ur.user_id = u.id
+        LEFT JOIN t_role r on ur.role_id = r.id
+        where ur.delete_status = 0
         <if test="searchKey != null and searchKey !=''">
             and real_name like concat(#{searchKey},'%')
         </if>
-        order by id desc
+        order by  u.id desc
     </select>
 </mapper>

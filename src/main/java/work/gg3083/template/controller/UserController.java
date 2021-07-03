@@ -50,12 +50,14 @@ public class UserController {
 
     @PostMapping("add")
     public JsonBack add(@RequestBody @Validated UserAddParam param){
-        return JsonBack.buildSuccJson(userService.add(param));
+        userService.add(param);
+        return JsonBack.buildSuccJson();
     }
 
     @PostMapping("/update/{id}")
     public JsonBack update(@PathVariable Integer id, @RequestBody @Validated UserUpdateParam param){
-        return JsonBack.buildSuccJson(userService.update(id, param));
+        userService.update(id, param);
+        return JsonBack.buildSuccJson();
     }
 
     @GetMapping("/")

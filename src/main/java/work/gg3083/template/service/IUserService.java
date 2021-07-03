@@ -5,6 +5,7 @@ import work.gg3083.template.entity.User;
 import work.gg3083.template.entity.param.UserAddParam;
 import work.gg3083.template.entity.param.UserUpdateParam;
 import work.gg3083.template.entity.vo.PageInfo;
+import work.gg3083.template.entity.vo.UserAdminVO;
 import work.gg3083.template.entity.vo.UserVO;
 
 /**
@@ -23,11 +24,11 @@ public interface IUserService extends IService<User> {
 
     void register(String loginName,String password);
 
-    PageInfo<User> list4Page(Integer pageNo, Integer pageSize, String searchKey);
+    PageInfo<UserAdminVO> list4Page(Integer pageNo, Integer pageSize, String searchKey);
 
-    int add(UserAddParam param);
+    void add(UserAddParam param);
 
-    int update(Integer id, UserUpdateParam param);
+    void update(Integer id, UserUpdateParam param);
 
     User get(Integer id);
 

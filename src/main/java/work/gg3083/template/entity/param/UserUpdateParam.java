@@ -50,6 +50,9 @@ public class UserUpdateParam implements Serializable {
     @ApiModelProperty(value = "住址")
     private String address;
 
+    @ApiModelProperty(value = "角色Id")
+    private Integer roleId;
+
 
 
 
