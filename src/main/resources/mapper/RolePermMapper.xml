@@ -17,5 +17,15 @@
         id,
         role_id, perm_id, create_time, update_time, delete_status
     </sql>
+    <select id="queryPermStringByRoleId" resultType="java.lang.String">
+        SELECT
+            p.perm_alias
+        FROM
+            t_role_perm AS rp
+            LEFT JOIN t_permissions AS p ON rp.perm_id = p.id
+        WHERE
+            rp.role_id = #{roleId}
+        AND rp.delete_status = 0
+    </select>
 
 </mapper>

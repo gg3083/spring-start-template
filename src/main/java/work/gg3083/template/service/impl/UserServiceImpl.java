@@ -1,6 +1,7 @@
 package work.gg3083.template.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import work.gg3083.template.commom.CommonConst;
+import work.gg3083.template.entity.RolePerm;
 import work.gg3083.template.entity.User;
 import work.gg3083.template.entity.UserRole;
 import work.gg3083.template.entity.param.UserAddParam;
@@ -16,10 +18,14 @@ import work.gg3083.template.entity.vo.PageInfo;
 import work.gg3083.template.entity.vo.UserAdminVO;
 import work.gg3083.template.entity.vo.UserVO;
 import work.gg3083.template.exception.MyException;
+import work.gg3083.template.mapper.RolePermMapper;
 import work.gg3083.template.mapper.UserMapper;
 import work.gg3083.template.mapper.UserRoleMapper;
 import work.gg3083.template.service.IUserRoleService;
 import work.gg3083.template.service.IUserService;
+
+import java.util.List;
+import java.util.stream.Collector;
 
 /**
  * <p>
@@ -40,6 +46,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Autowired
     private IUserRoleService userRoleService;
+
+    @Autowired
+    private RolePermMapper rolePermMapper;
 
     @Override
     public User findUserByLoginName() {
@@ -139,6 +148,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public UserVO findUserVoByUserId(String id) {
-        return userMapper.findUserVoByUserId(id);
+        UserVO userVO = userMapper.findUserVoByUserId(id);
+        if (userVO != null){
+            List<String> rolePerms = rolePermMapper.queryPermStringByRoleId(userVO.getRoleId());
+            userVO.setPermList(rolePerms);
+        }
+        return userVO;
     }
 }

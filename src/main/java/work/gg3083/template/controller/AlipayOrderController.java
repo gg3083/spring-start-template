@@ -3,7 +3,9 @@ package work.gg3083.template.controller;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,7 @@ import work.gg3083.template.service.IAlipayOrderService;
  */
 @RestController
 @RequestMapping("/alipay-order")
+@Slf4j
 public class AlipayOrderController {
 
     @Autowired
@@ -43,8 +46,9 @@ public class AlipayOrderController {
     }
 
     @PostMapping("add")
-    public JsonBack add(@RequestBody @Validated RoleAddParam param){
-        return JsonBack.buildSuccJson(alipayOrderService.add(param));
+    public JsonBack add(){
+        log.info("开始添加:");
+        return JsonBack.buildSuccJson();
     }
 
     @PostMapping("/update/{id}")

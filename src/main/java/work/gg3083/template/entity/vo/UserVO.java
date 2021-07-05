@@ -2,6 +2,8 @@ package work.gg3083.template.entity.vo;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author Gimi
  * @date 2019/8/15 11:05
@@ -14,6 +16,8 @@ public class UserVO {
     private String password;
     private String roleName;
     private String roleAlias;
+    private Integer roleId;
     private String token;
     private String authentication;
+    private List<String> permList;
 }
