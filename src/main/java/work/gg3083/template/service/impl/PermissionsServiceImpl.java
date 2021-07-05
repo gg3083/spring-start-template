@@ -63,7 +63,8 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper, Permi
                 .setParentId(param.getParentId())
                 .setUrl(param.getUrl())
                 .setPermAlias(param.getPermAlias());
-        return permissionsMapper.insert(permissions);
+        this.save(permissions);
+        return permissions.getId();
     }
 
     @Override

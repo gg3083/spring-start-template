@@ -15,11 +15,14 @@ public class CodeGenerator {
 
     final static String[] tables = {
 //            "t_user_role",
-            "t_role",
+//            "t_role",
 //            "t_user",
 //            "t_role_perm",
 //            "t_permissions",
+            "t_alipay_order",
     };
+
+    final static String packageName = "work.gg3083.template";
 
     public static void main(String[] args) {
 
@@ -43,17 +46,17 @@ public class CodeGenerator {
         mpg.setGlobalConfig(gc);
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/perm_template?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/perm_template?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("root");
+        dsc.setPassword("Qwe123.0");
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
 //        pc.setModuleName(table);
-        pc.setParent("work.gg3083.template");
+        pc.setParent(packageName);
         mpg.setPackageInfo(pc);
 
         // 自定义配置

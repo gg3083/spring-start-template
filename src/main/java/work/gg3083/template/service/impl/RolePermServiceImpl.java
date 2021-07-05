@@ -33,18 +33,16 @@ public class RolePermServiceImpl extends ServiceImpl<RolePermMapper, RolePerm> i
     public List<Integer> save(RolePermAddParam param, Integer roleId) {
         LambdaQueryWrapper<RolePerm> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(RolePerm::getRoleId, roleId);
-        boolean remove = this.remove(lambdaQueryWrapper);
-        if (remove){
-            List<RolePerm> rolePermList = new ArrayList<>();
-            param.getPermIdList().forEach(item->{
-                RolePerm rolePerm = new RolePerm();
-                rolePerm.setRoleId(roleId);
-                rolePerm.setPermId(item);
-                rolePermList.add(rolePerm);
-            });
-            if (this.saveBatch(rolePermList)) {
-                return param.getPermIdList();
-            }
+        this.remove(lambdaQueryWrapper);
+        List<RolePerm> rolePermList = new ArrayList<>();
+        param.getPermIdList().forEach(item->{
+            RolePerm rolePerm = new RolePerm();
+            rolePerm.setRoleId(roleId);
+            rolePerm.setPermId(item);
+            rolePermList.add(rolePerm);
+        });
+        if (this.saveBatch(rolePermList)) {
+            return param.getPermIdList();
         }
         return new ArrayList<>();
     }

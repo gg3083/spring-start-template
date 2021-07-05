@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.gg3083.template.mapper.AlipayOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="work.gg3083.template.entity.AlipayOrder">
+    <result column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="delete_status" property="deleteStatus" />
+        <result column="seller_email" property="sellerEmail" />
+        <result column="invoice_amount" property="invoiceAmount" />
+        <result column="notify_time" property="notifyTime" />
+        <result column="buyer_logon_id" property="buyerLogonId" />
+        <result column="total_amount" property="totalAmount" />
+        <result column="trade_no" property="tradeNo" />
+        <result column="out_trade_no" property="outTradeNo" />
+        <result column="notify_id" property="notifyId" />
+        <result column="trade_status" property="tradeStatus" />
+        <result column="order_real_status" property="orderRealStatus" />
+        <result column="receipt_amount" property="receiptAmount" />
+        <result column="buyer_pay_amount" property="buyerPayAmount" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_payment" property="gmtPayment" />
+        <result column="subject" property="subject" />
+        <result column="seller_id" property="sellerId" />
+        <result column="qr_code" property="qrCode" />
+        <result column="user_name" property="userName" />
+        <result column="charge_email_credit" property="chargeEmailCredit" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_time, update_time, delete_status, seller_email, invoice_amount, notify_time, buyer_logon_id, total_amount, trade_no, out_trade_no, notify_id, trade_status, order_real_status, receipt_amount, buyer_pay_amount, gmt_create, gmt_payment, subject, seller_id, qr_code, user_name, charge_email_credit
+    </sql>
+
+</mapper>
