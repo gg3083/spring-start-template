@@ -30,12 +30,12 @@ public class TokenController {
 
     @GetMapping("get")
     public JsonBack getToken(String loginName){
-        HashMap<String, Object> map = new HashMap();
+        HashMap<String, Object> map = new HashMap<>();
         UserVO userVo = userService.findUserVoByLoginName(loginName);
         if (userVo == null )return JsonBack.buildErrorJson("账户名不存在");
         map.put(CommonConst.ID,userVo.getId());
         map.put(CommonConst.LOGIN_NAME,userVo.getLoginName());
-        map.put(CommonConst.ROLE_ALIAS,userVo.getRoleAlias());
+        map.put(CommonConst.ROLE_ID,userVo.getRoleId());
         String token = jwtHelper.createToken(map);
         return JsonBack.buildSuccJson(token);
     }

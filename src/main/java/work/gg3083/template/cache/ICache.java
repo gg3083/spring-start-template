@@ -6,17 +6,17 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-public interface ICache {
+public interface ICache<T> {
 
-    void put(String key, List<Object> value);
+    void put(String key, List<T> value);
 
     void remove(String key);
 
-    Object get(String key);
+    List<T> get(String key);
 
     void clear();
 
     long size();
 
-    ConcurrentHashMap<String, List<Object>> list();
+    ConcurrentHashMap<String, List<T>> list();
 }

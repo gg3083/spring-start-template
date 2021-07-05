@@ -54,15 +54,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 注入自定义权限管理
      *
      * @return
-     * @throws Exception
+     * @throws
      */
     @Bean
-    public DefaultWebSecurityExpressionHandler webSecurityExpressionHandler2() {
+    public DefaultWebSecurityExpressionHandler defaultWebSecurityExpressionHandler(){
         DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
         handler.setPermissionEvaluator(new CustomPermissionEvaluator());
         return handler;
     }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -104,12 +103,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()// 对请求授权
                 .antMatchers(AuthConst.NO_AUTH_RESOURCES).permitAll()// 这些页面不需要身份认证
-                .antMatchers("/api/**")
-                .access("@authPreCheckEvaluatorImpl2.check(authentication)")
+//                .antMatchers("/api/**")
+//                .access("@hasPermission()")
                 .anyRequest()//其他请求需要认证
                 .authenticated().and().exceptionHandling()
                 .accessDeniedHandler(accessDeniedAuthenticationHandler)
                 .and()
+//                .addFilterBefore(new TokenFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
                 .addFilter(new TokenFilter(authenticationManager()))
                 .csrf().disable();// 禁用跨站攻击
     }
@@ -117,7 +117,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         //对于在header里面增加token等类似情况，放行所有OPTIONS请求。
-        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+        web.ignoring().antMatchers(HttpMethod.OPTIONS);
     }
 
 }

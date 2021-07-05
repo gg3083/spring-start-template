@@ -27,7 +27,4 @@
         </if>
     </select>
 
-    <delete id="deleteById">
-        UPDATE t_role SET delete_status = 1 WHERE id = #{id}
-    </delete>
 </mapper>

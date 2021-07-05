@@ -18,8 +18,6 @@ import work.gg3083.template.entity.vo.UserVO;
  */
 public interface IUserService extends IService<User> {
 
-    User findUserByLoginName();
-
     UserVO findUserVoByLoginName(String loginName);
 
     void register(String loginName,String password);

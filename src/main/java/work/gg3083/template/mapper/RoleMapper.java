@@ -19,5 +19,4 @@ public interface RoleMapper extends BaseMapper<Role> {
 
     List<Role> list4Page(@Param("searchKey") String searchKey, Page<Role> page);
 
-    int deleteById(@Param("id")Integer id);
 }

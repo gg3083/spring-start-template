@@ -16,6 +16,7 @@ import work.gg3083.template.entity.vo.PageInfo;
 import work.gg3083.template.entity.vo.UserVO;
 import work.gg3083.template.exception.MyExceptionType;
 import work.gg3083.template.service.IUserService;
+import work.gg3083.template.util.TokenUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
-@Api(value="用户控制器", tags={"用户相关"})
+@Api(value = "用户控制器", tags = {"用户相关"})
 public class UserController {
 
     @Autowired
@@ -41,40 +42,40 @@ public class UserController {
     private JwtHelper jwtHelper;
 
     @GetMapping("list")
-    public JsonBack list(@RequestParam(name = "pageNo",defaultValue = "1") Integer pageNo,
-                                         @RequestParam(name = "pageSize",defaultValue = "10") Integer pageSize,
-                                         String searchKey){
+    public JsonBack list(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
+                         @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                         String searchKey) {
 
-        return JsonBack.buildSuccJson(userService.list4Page(pageNo,pageSize,searchKey));
+        return JsonBack.buildSuccJson(userService.list4Page(pageNo, pageSize, searchKey));
     }
 
     @PostMapping("add")
-    public JsonBack add(@RequestBody @Validated UserAddParam param){
+    public JsonBack add(@RequestBody @Validated UserAddParam param) {
         userService.add(param);
         return JsonBack.buildSuccJson();
     }
 
     @PostMapping("/update/{id}")
-    public JsonBack update(@PathVariable Integer id, @RequestBody @Validated UserUpdateParam param){
+    public JsonBack update(@PathVariable Integer id, @RequestBody @Validated UserUpdateParam param) {
         userService.update(id, param);
         return JsonBack.buildSuccJson();
     }
 
     @GetMapping("/")
-    public JsonBack get(HttpServletRequest request){
+    public JsonBack get(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-        String id = jwtHelper.parseToken(token);
-        UserVO userVo = userService.findUserVoByUserId(id);
+        String userId = TokenUtil.parseToken(token);
+        UserVO userVo = userService.findUserVoByUserId(userId);
         return JsonBack.buildSuccJson(userVo);
     }
 
     @GetMapping("/refreshToken")
-    public JsonBack refreshToken(HttpServletRequest request){
+    public JsonBack refreshToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         TokenVerifyEnum verifyEnum = jwtHelper.validationToken(token);
-        if (verifyEnum == TokenVerifyEnum.EXPIRED){
-            String id = jwtHelper.parseToken(token);
-            UserVO userVo = userService.findUserVoByUserId(id);
+        if (verifyEnum == TokenVerifyEnum.EXPIRED) {
+            String userId = TokenUtil.parseToken(token);
+            UserVO userVo = userService.findUserVoByUserId(userId);
             String newToken = jwtHelper.generateToken(userVo);
             return JsonBack.buildSuccJson(newToken);
         }
@@ -82,7 +83,7 @@ public class UserController {
     }
 
     @PostMapping("/delete/{id}")
-    public JsonBack delete(@PathVariable Integer id){
+    public JsonBack delete(@PathVariable Integer id) {
         return JsonBack.buildSuccJson(userService.delete(id));
     }
 }

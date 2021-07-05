@@ -12,10 +12,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @Slf4j
-public class MemoryCacheImpl implements ICache {
+public class MemoryCacheImpl<T> implements ICache<T> {
 
 
-    private final ConcurrentHashMap<String, List<Object>> cache = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, List<T>> cache = new ConcurrentHashMap<>();
 
     public MemoryCacheImpl() {
 
@@ -23,7 +23,7 @@ public class MemoryCacheImpl implements ICache {
 
 
     @Override
-    public void put(String key, List<Object> value) {
+    public void put(String key, List<T> value) {
         if (StringUtils.isEmpty(key)){
             return;
         }
@@ -31,7 +31,7 @@ public class MemoryCacheImpl implements ICache {
             cache.remove(value);
             return;
         }
-        List<Object> cacheValList = cache.get(key);
+        List<T> cacheValList = cache.get(key);
         if (CollectionUtils.isEmpty(cacheValList)) {
             cacheValList = value;
         }else {
@@ -43,7 +43,7 @@ public class MemoryCacheImpl implements ICache {
 
 
     @Override
-    public ConcurrentHashMap<String, List<Object>> list() {
+    public ConcurrentHashMap<String, List<T>> list() {
 
         return cache;
     }
@@ -54,9 +54,8 @@ public class MemoryCacheImpl implements ICache {
     }
 
     @Override
-    public Object get(String key) {
-        List<Object> value = cache.get(key);
-        return value;
+    public List<T> get(String key) {
+        return cache.get(key);
     }
 
     @Override

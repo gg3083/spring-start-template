@@ -53,6 +53,8 @@ public class MyExceptionResolver implements HandlerExceptionResolver {
             if (getMapping != null || postMapping != null || putMapping != null || deleteMapping != null) {
                 if (ex instanceof DuplicateKeyException){
                     response.getWriter().println(JsonUtil.beanToJson(JsonBack.buildErrorJson(ex.getCause().getMessage())));
+                }else if (ex instanceof org.springframework.security.access.AccessDeniedException){
+                    response.getWriter().println(JsonUtil.beanToJson(JsonBack.buildErrorJson(MyExceptionType.NO_PERMISSION)));
                 }else {
                     response.getWriter().println(JsonUtil.beanToJson(JsonBack.buildErrorJson( ex.getMessage())));
                 }

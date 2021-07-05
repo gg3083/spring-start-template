@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import work.gg3083.template.cache.ICache;
 import work.gg3083.template.commom.CommonConst;
 import work.gg3083.template.component.JwtHelper;
 import work.gg3083.template.entity.json.JsonBack;
@@ -35,19 +36,22 @@ public class SuccessLoginHandler implements AuthenticationSuccessHandler {
     @Autowired
     private JwtHelper helper;
 
+    @Autowired
+    private ICache cache;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        log.info("auth-pass");
+        log.info("auth pass");
 
         UserVO userVo = userService.findUserVoByLoginName(authentication.getName());
-        HashMap<String, Object> map = new HashMap();
+        HashMap<String, Object> map = new HashMap<>();
         map.put(CommonConst.ID,userVo.getId());
         map.put(CommonConst.LOGIN_NAME,userVo.getLoginName());
-        map.put(CommonConst.ROLE_ALIAS,userVo.getRoleAlias());
+        map.put(CommonConst.ROLE_ID,userVo.getRoleId());
         String token = helper.createToken(map);
         userVo.setToken(token);
+        cache.put(String.valueOf(userVo.getId()), userVo.getPermList());
         httpServletResponse.setStatus(HttpStatus.OK.value());
-        userVo.setAuthentication(JsonUtil.beanToJson(authentication));
         httpServletResponse.setContentType("application/json;charset=UTF-8");
         httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
         httpServletResponse.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type,Authorization");

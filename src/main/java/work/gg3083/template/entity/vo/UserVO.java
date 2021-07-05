@@ -18,6 +18,5 @@ public class UserVO {
     private String roleAlias;
     private Integer roleId;
     private String token;
-    private String authentication;
     private List<String> permList;
 }

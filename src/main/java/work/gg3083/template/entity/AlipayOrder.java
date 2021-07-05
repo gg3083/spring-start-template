@@ -1,9 +1,8 @@
 package work.gg3083.template.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,6 +26,11 @@ import lombok.experimental.Accessors;
 public class AlipayOrder implements Serializable {
 
     private static final long serialVersionUID=1L;
+
+    @ApiModelProperty(value = "主键")
+    @TableField("id")
+    @TableId(type = IdType.AUTO)
+    private Integer id;
 
     @TableField("create_time")
     private LocalDateTime createTime;

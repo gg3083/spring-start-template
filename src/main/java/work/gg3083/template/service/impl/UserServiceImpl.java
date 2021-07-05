@@ -50,14 +50,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Autowired
     private RolePermMapper rolePermMapper;
 
-    @Override
-    public User findUserByLoginName() {
-        return null;
-    }
 
     @Override
     public UserVO findUserVoByLoginName(String loginName) {
-        return userMapper.findUserVoByLoginName(loginName);
+        UserVO userVO = userMapper.findUserVoByLoginName(loginName);
+        if (userVO != null){
+            List<String> rolePerms = rolePermMapper.queryPermStringByRoleId(userVO.getRoleId());
+            userVO.setPermList(rolePerms);
+        }
+        return userVO;
     }
 
     @Override

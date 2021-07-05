@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +47,7 @@ public class AlipayOrderController {
     }
 
     @PostMapping("add")
+    @PreAuthorize("hasPermission('s:order:alipay_order:btn_add:btn','')")
     public JsonBack add(){
         log.info("开始添加:");
         return JsonBack.buildSuccJson();

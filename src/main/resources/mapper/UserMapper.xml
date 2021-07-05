@@ -34,6 +34,7 @@
             u.real_name,
             u.password,
             r.role_name,
+            r.id as role_id,
             r.role_alias
         from t_user_role ur
         LEFT JOIN t_user u on ur.user_id = u.id

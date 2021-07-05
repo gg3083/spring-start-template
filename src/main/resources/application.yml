@@ -31,7 +31,7 @@ mybatis-plus:
 
 logging:
   level:
-    work.gg3083.template.mapper : debug
+    work.gg3083.template.mapper : info
 
 # token验证
 jwt:

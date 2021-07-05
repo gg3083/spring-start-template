@@ -11,10 +11,9 @@ import org.springframework.stereotype.Component;
 import work.gg3083.template.commom.CommonConst;
 import work.gg3083.template.entity.User;
 import work.gg3083.template.entity.enums.TokenVerifyEnum;
-import work.gg3083.template.entity.json.JsonBack;
 import work.gg3083.template.entity.vo.UserVO;
-import work.gg3083.template.exception.MyExceptionType;
 import work.gg3083.template.service.IUserService;
+import work.gg3083.template.util.TokenUtil;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -80,44 +79,19 @@ public class JwtHelper {
         HashMap<String, Object> map = new HashMap();
         map.put(CommonConst.ID, id);
         map.put(CommonConst.LOGIN_NAME, loginName);
-        map.put(CommonConst.ROLE_ALIAS, role);
-        String token = this.createToken(map);
-        return token;
+        map.put(CommonConst.ROLE_ID, role);
+        return this.createToken(map);
     }
 
     public String generateToken(UserVO user){
         if (user == null){
             return null;
         }
-        return buildToken(user.getId(), user.getLoginName(), user.getRoleAlias());
+        return buildToken(user.getId(), user.getLoginName(), user.getRoleId());
     }
 
     public TokenVerifyEnum validationToken(String jsonWebToken) {
-        try {
-            Claims body = Jwts.parser()
-                    .setSigningKey(DatatypeConverter.parseBase64Binary(base64Secret))
-                    .parseClaimsJws(jsonWebToken).getBody();
-            logger.debug(body.toString());
-            return TokenVerifyEnum.PASS;
-        } catch (ExpiredJwtException ex) {
-            return TokenVerifyEnum.EXPIRED;
-        } catch (Exception ex) {
-            logger.debug(ex.getMessage());
-            return TokenVerifyEnum.INVALID;
-        }
-    }
-
-    public String parseToken(String auth){
-        String userId = null;
-        try {
-            String token = auth.substring( auth.indexOf(".")+1,auth.lastIndexOf("."));
-            String json = new String ( Base64.getDecoder().decode( token) , "UTF-8" );
-            JSONObject object = JSONObject.parseObject( json );
-            userId = object.get("id").toString();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return userId;
+        return TokenUtil.validationToken(jsonWebToken, base64Secret);
     }
 
     public User parseTokenToModel(String auth){

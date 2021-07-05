@@ -33,7 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new MyException("用户不存在！");
         }
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(userVo.getRoleAlias()));
+        authorities.add(new SimpleGrantedAuthority(String.valueOf(userVo.getRoleId())));
         return new org.springframework.security.core.userdetails.User(userVo.getLoginName(), userVo.getPassword(), authorities);
     }
 }

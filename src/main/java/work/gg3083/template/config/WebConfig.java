@@ -2,6 +2,8 @@ package work.gg3083.template.config;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
@@ -26,12 +28,17 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(true);
     }
 
+    @Autowired
+    private CORSInterceptor corsInterceptor;
 
+    /**
+     * 不能直接new 会导致组件未注册
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(new CORSInterceptor());
+        registry.addInterceptor(corsInterceptor);
     }
-
 
     /**
      * 防止@EnableMvc把默认的静态资源路径覆盖了，手动设置的方式

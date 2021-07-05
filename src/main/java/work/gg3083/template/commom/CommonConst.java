@@ -10,7 +10,7 @@ public class CommonConst {
     public static final Integer DELETE_STATUS_Y = 1; //已删除
     public static final String ID = "id";
     public static final String LOGIN_NAME = "loginName";
-    public static final String ROLE_ALIAS = "roleAlias";
+    public static final String ROLE_ID = "roleId";
 
     public final static String EN_UK_COMMA = ",";
 
