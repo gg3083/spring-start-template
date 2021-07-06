@@ -31,6 +31,6 @@ public class FailLoginHandler implements AuthenticationFailureHandler {
         httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
         httpServletResponse.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type,Authorization");
         httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
-        httpServletResponse.getWriter().write(JsonUtil.beanToJson(JsonBack.buildErrorJson(e.getMessage())));
+        httpServletResponse.getWriter().write(JsonUtil.beanToJson(JsonBack.buildErrorJson("密码错误"+e.getMessage())));
     }
 }

@@ -44,7 +44,7 @@ public class PermissionsServiceTest extends QuickStartApplicationTests {
     @Autowired
     private RoleController roleController;
 
-    @Test
+//    @Test
     public void roleAdd(){
         for (int i = 1; i < 101; i++) {
             RoleAddParam param = new RoleAddParam();

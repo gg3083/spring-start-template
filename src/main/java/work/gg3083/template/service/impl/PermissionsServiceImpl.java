@@ -1,18 +1,23 @@
 package work.gg3083.template.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.additional.query.impl.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import work.gg3083.template.commom.CommonConst;
 import work.gg3083.template.entity.Permissions;
+import work.gg3083.template.entity.RolePerm;
+import work.gg3083.template.entity.UserRole;
 import work.gg3083.template.entity.param.PermAddParam;
 import work.gg3083.template.entity.param.PermUpdateParam;
 import work.gg3083.template.entity.vo.PageInfo;
 import work.gg3083.template.exception.MyException;
 import work.gg3083.template.mapper.PermissionsMapper;
 import work.gg3083.template.service.IPermissionsService;
+import work.gg3083.template.service.IRolePermService;
+import work.gg3083.template.service.IRoleService;
 
 import java.util.List;
 
@@ -57,6 +62,10 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper, Permi
 
     @Override
     public int add(PermAddParam param) {
+        final LambdaQueryChainWrapper<Permissions> eq = this.lambdaQuery().eq(Permissions::getPermAlias, param.getPermAlias());
+        if (this.list(eq.getWrapper()).size() > 0){
+            throw new MyException("重复的key值！");
+        }
         Permissions permissions = new Permissions()
                 .setIcon(param.getIcon())
                 .setPermName(param.getPermName())
@@ -72,9 +81,17 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper, Permi
         return this.getById(id);
     }
 
+
+    @Autowired
+    private IRolePermService rolePermService;
+
+
     @Override
     public int delete(Integer id) {
-
+        LambdaQueryChainWrapper<RolePerm> eq = rolePermService.lambdaQuery().eq(RolePerm::getPermId, id);
+        if (rolePermService.list(eq.getWrapper()).size() > 0) {
+            throw new MyException("该权限下绑定了角色，不允许删除！");
+        }
         return permissionsMapper.deleteById(id);
     }
 }

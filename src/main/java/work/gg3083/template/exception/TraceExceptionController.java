@@ -12,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import work.gg3083.template.entity.json.JsonBack;
 
@@ -60,6 +61,11 @@ public class TraceExceptionController extends ResponseEntityExceptionHandler {
         }else if(exp!=null && exp instanceof HttpMessageNotReadableException) {
             String msg = ((HttpMessageNotReadableException) exp).getMessage();
             jsonBack = new JsonBack(JsonBack.JSON_BACK_FAILED, MyExceptionType.VALIDATE_ERR.getErrorCode(), msg, msg);
+        } else if(exp!=null && exp instanceof MethodArgumentTypeMismatchException) {
+            String msg = ((MethodArgumentTypeMismatchException) exp).getMessage();
+            Object value = ((MethodArgumentTypeMismatchException) exp).getValue();
+            String requiredType = ((MethodArgumentTypeMismatchException) exp).getRequiredType().toString();
+            jsonBack = new JsonBack(JsonBack.JSON_BACK_FAILED, MyExceptionType.VALIDATE_ERR.getErrorCode(), String.format("值:%s 格式错误,期望类型为：%s", value, requiredType), msg);
         } else if (exp != null && exp instanceof MethodArgumentNotValidException){
             String errMsg = "请求参数验证失败";
             try {
