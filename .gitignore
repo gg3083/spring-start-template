@@ -29,3 +29,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/front/dist/static/
+/front/dist/favicon.ico

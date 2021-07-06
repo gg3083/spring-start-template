@@ -1,0 +1,33 @@
+version: '3'
+services:
+  mysql_server:
+    image: mysql:5.7
+    container_name: mysql_server
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: Qwe123.0
+      MYSQL_DATABASE: perm_template
+      TZ: Asia/Shanghai
+    volumes:
+      - /opt/docker/mysql_server/data:/var/lib/mysql           # 挂载数据目录
+      - /opt/docker/mysql_server/config:/etc/mysql/conf.d      # 挂载配置文件目录
+      - ${PWD}/spring-start-template/doc/init.sql:/docker-entrypoint-initdb.d/ #初始化数据库
+    privileged: true
+  spring-start-template_server:
+    image: spring-boot/spring-start-template:latest
+    ports:
+      - 8092:8092
+    container_name: spring-start-template_prod
+  vue_cms_front:
+    build:
+      context: .
+      dockerfile: ./front/Dockerfile
+    image: vue_cms_front:v1
+    ports:
+      - 8081:80
+    container_name: vue_cms_front
+networks:
+  default:
+    external:
+      name: java_network

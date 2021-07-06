@@ -17,3 +17,6 @@
 - ElementUI
 - docker
 - nginx
+
+## 静态资源库
+[静态资源库](https://github.com/gg3083/vue-front-cms-template)
