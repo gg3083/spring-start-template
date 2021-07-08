@@ -8,10 +8,10 @@
  Source Schema         : perm_template
 
  Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Version : 50734
  File Encoding         : 65001
 
- Date: 06/07/2021 10:52:37
+ Date: 08/07/2021 21:58:12
 */
 
 SET NAMES utf8mb4;
@@ -22,30 +22,30 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_alipay_order`;
 CREATE TABLE `t_alipay_order`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `update_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
-  `delete_status` tinyint(2) NULL DEFAULT 0,
-  `seller_email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `invoice_amount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `notify_time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `buyer_logon_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `total_amount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `trade_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `out_trade_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `notify_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `trade_status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `order_real_status` int(11) NULL DEFAULT NULL,
-  `receipt_amount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `buyer_pay_amount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `gmt_create` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `gmt_payment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `seller_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `qr_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `charge_email_credit` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+                                   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                   `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP,
+                                   `update_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+                                   `delete_status` tinyint(2) NULL DEFAULT 0,
+                                   `seller_email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `invoice_amount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `notify_time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `buyer_logon_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `total_amount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `trade_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `out_trade_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `notify_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `trade_status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `order_real_status` int(11) NULL DEFAULT NULL,
+                                   `receipt_amount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `buyer_pay_amount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `gmt_create` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `gmt_payment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `seller_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `qr_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                   `charge_email_credit` int(11) NULL DEFAULT NULL,
+                                   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -72,17 +72,17 @@ INSERT INTO `t_alipay_order` VALUES (15, '2021-07-03 21:44:44', '2021-07-05 11:4
 -- ----------------------------
 DROP TABLE IF EXISTS `t_permissions`;
 CREATE TABLE `t_permissions`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `perm_name` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '权限名称',
-  `url` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '#' COMMENT 'url地址',
-  `perm_alias` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限简称例如 system:index:main',
-  `parent_id` int(11) NOT NULL DEFAULT 0 COMMENT '父级Id',
-  `icon` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图标',
-  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
-  `delete_status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '删除状态=={\\\"0\\\":\\\"正常\\\",\\\"1\\\":\\\"禁用\\\"}',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = COMPACT;
+                                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                                  `perm_name` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '权限名称',
+                                  `url` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '#' COMMENT 'url地址',
+                                  `perm_alias` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限简称例如 system:index:main',
+                                  `parent_id` int(11) NOT NULL DEFAULT 0 COMMENT '父级Id',
+                                  `icon` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图标',
+                                  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+                                  `delete_status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '删除状态=={\\\"0\\\":\\\"正常\\\",\\\"1\\\":\\\"禁用\\\"}',
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of t_permissions
@@ -104,20 +104,23 @@ INSERT INTO `t_permissions` VALUES (14, '支付宝订单', '#', 's:order:alipay_
 INSERT INTO `t_permissions` VALUES (15, '添加订单', '#', 's:order:alipay_order:btn_add:btn', 14, NULL, '2021-07-05 14:23:03', '2021-07-05 15:49:18', 1);
 INSERT INTO `t_permissions` VALUES (16, '添加支付宝订单', '#', 's:order:alipay_order:btn_add:btn', 13, NULL, '2021-07-05 15:49:21', '2021-07-05 15:49:34', 0);
 INSERT INTO `t_permissions` VALUES (17, '查看支付宝订单详情', '#', 's:order:alipay_order:btn_query:btn', 13, NULL, '2021-07-06 10:41:56', '2021-07-06 10:43:14', 0);
+INSERT INTO `t_permissions` VALUES (18, '常用工具', '#', 's:tools:menu', 1, NULL, '2021-07-08 13:36:05', '2021-07-08 13:36:39', 0);
+INSERT INTO `t_permissions` VALUES (19, '阿里云oss', '#', 's:tools:oss:menu', 18, NULL, '2021-07-08 13:36:58', '2021-07-08 13:37:12', 0);
+INSERT INTO `t_permissions` VALUES (20, '代码生成', '#', 's:tools:generate:menu', 18, NULL, '2021-07-08 13:37:16', '2021-07-08 13:37:28', 0);
 
 -- ----------------------------
 -- Table structure for t_role
 -- ----------------------------
 DROP TABLE IF EXISTS `t_role`;
 CREATE TABLE `t_role`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色名称',
-  `role_alias` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '别名',
-  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
-  `delete_status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '删除状态=={\\\"0\\\":\\\"正常\\\",\\\"1\\\":\\\"禁用\\\"}',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = COMPACT;
+                           `id` int(11) NOT NULL AUTO_INCREMENT,
+                           `role_name` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色名称',
+                           `role_alias` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '别名',
+                           `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                           `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+                           `delete_status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '删除状态=={\\\"0\\\":\\\"正常\\\",\\\"1\\\":\\\"禁用\\\"}',
+                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of t_role
@@ -130,14 +133,14 @@ INSERT INTO `t_role` VALUES (2, '用户', 'ROLE_USER', '2019-08-15 16:07:15', '2
 -- ----------------------------
 DROP TABLE IF EXISTS `t_role_perm`;
 CREATE TABLE `t_role_perm`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_id` int(11) NOT NULL COMMENT '角色ID',
-  `perm_id` int(11) NOT NULL COMMENT '权限id',
-  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
-  `delete_status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '删除状态=={\\\"0\\\":\\\"正常\\\",\\\"1\\\":\\\"禁用\\\"}',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 81 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限关联表' ROW_FORMAT = COMPACT;
+                                `id` int(11) NOT NULL AUTO_INCREMENT,
+                                `role_id` int(11) NOT NULL COMMENT '角色ID',
+                                `perm_id` int(11) NOT NULL COMMENT '权限id',
+                                `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+                                `delete_status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '删除状态=={\\\"0\\\":\\\"正常\\\",\\\"1\\\":\\\"禁用\\\"}',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 95 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限关联表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of t_role_perm
@@ -211,40 +214,54 @@ INSERT INTO `t_role_perm` VALUES (66, 2, 9, '2021-07-06 10:43:26', '2021-07-06 1
 INSERT INTO `t_role_perm` VALUES (67, 2, 12, '2021-07-06 10:43:26', '2021-07-06 10:43:26', 0);
 INSERT INTO `t_role_perm` VALUES (68, 2, 13, '2021-07-06 10:43:26', '2021-07-06 10:43:26', 0);
 INSERT INTO `t_role_perm` VALUES (69, 2, 14, '2021-07-06 10:43:26', '2021-07-06 10:43:26', 0);
-INSERT INTO `t_role_perm` VALUES (70, 1, 1, '2021-07-06 10:45:56', '2021-07-06 10:45:56', 0);
-INSERT INTO `t_role_perm` VALUES (71, 1, 2, '2021-07-06 10:45:56', '2021-07-06 10:45:56', 0);
-INSERT INTO `t_role_perm` VALUES (72, 1, 3, '2021-07-06 10:45:56', '2021-07-06 10:45:56', 0);
-INSERT INTO `t_role_perm` VALUES (73, 1, 9, '2021-07-06 10:45:56', '2021-07-06 10:45:56', 0);
-INSERT INTO `t_role_perm` VALUES (74, 1, 10, '2021-07-06 10:45:56', '2021-07-06 10:45:56', 0);
-INSERT INTO `t_role_perm` VALUES (75, 1, 11, '2021-07-06 10:45:56', '2021-07-06 10:45:56', 0);
-INSERT INTO `t_role_perm` VALUES (76, 1, 12, '2021-07-06 10:45:56', '2021-07-06 10:45:56', 0);
-INSERT INTO `t_role_perm` VALUES (77, 1, 13, '2021-07-06 10:45:56', '2021-07-06 10:45:56', 0);
-INSERT INTO `t_role_perm` VALUES (78, 1, 14, '2021-07-06 10:45:56', '2021-07-06 10:45:56', 0);
-INSERT INTO `t_role_perm` VALUES (79, 1, 16, '2021-07-06 10:45:56', '2021-07-06 10:45:56', 0);
-INSERT INTO `t_role_perm` VALUES (80, 1, 17, '2021-07-06 10:45:56', '2021-07-06 10:45:56', 0);
+INSERT INTO `t_role_perm` VALUES (70, 1, 1, '2021-07-06 10:45:56', '2021-07-08 13:37:33', 1);
+INSERT INTO `t_role_perm` VALUES (71, 1, 2, '2021-07-06 10:45:56', '2021-07-08 13:37:33', 1);
+INSERT INTO `t_role_perm` VALUES (72, 1, 3, '2021-07-06 10:45:56', '2021-07-08 13:37:33', 1);
+INSERT INTO `t_role_perm` VALUES (73, 1, 9, '2021-07-06 10:45:56', '2021-07-08 13:37:33', 1);
+INSERT INTO `t_role_perm` VALUES (74, 1, 10, '2021-07-06 10:45:56', '2021-07-08 13:37:33', 1);
+INSERT INTO `t_role_perm` VALUES (75, 1, 11, '2021-07-06 10:45:56', '2021-07-08 13:37:33', 1);
+INSERT INTO `t_role_perm` VALUES (76, 1, 12, '2021-07-06 10:45:56', '2021-07-08 13:37:33', 1);
+INSERT INTO `t_role_perm` VALUES (77, 1, 13, '2021-07-06 10:45:56', '2021-07-08 13:37:33', 1);
+INSERT INTO `t_role_perm` VALUES (78, 1, 14, '2021-07-06 10:45:56', '2021-07-08 13:37:33', 1);
+INSERT INTO `t_role_perm` VALUES (79, 1, 16, '2021-07-06 10:45:56', '2021-07-08 13:37:33', 1);
+INSERT INTO `t_role_perm` VALUES (80, 1, 17, '2021-07-06 10:45:56', '2021-07-08 13:37:33', 1);
+INSERT INTO `t_role_perm` VALUES (81, 1, 1, '2021-07-08 13:37:33', '2021-07-08 13:37:33', 0);
+INSERT INTO `t_role_perm` VALUES (82, 1, 2, '2021-07-08 13:37:33', '2021-07-08 13:37:33', 0);
+INSERT INTO `t_role_perm` VALUES (83, 1, 3, '2021-07-08 13:37:33', '2021-07-08 13:37:33', 0);
+INSERT INTO `t_role_perm` VALUES (84, 1, 9, '2021-07-08 13:37:33', '2021-07-08 13:37:33', 0);
+INSERT INTO `t_role_perm` VALUES (85, 1, 10, '2021-07-08 13:37:33', '2021-07-08 13:37:33', 0);
+INSERT INTO `t_role_perm` VALUES (86, 1, 11, '2021-07-08 13:37:33', '2021-07-08 13:37:33', 0);
+INSERT INTO `t_role_perm` VALUES (87, 1, 12, '2021-07-08 13:37:33', '2021-07-08 13:37:33', 0);
+INSERT INTO `t_role_perm` VALUES (88, 1, 13, '2021-07-08 13:37:34', '2021-07-08 13:37:34', 0);
+INSERT INTO `t_role_perm` VALUES (89, 1, 14, '2021-07-08 13:37:34', '2021-07-08 13:37:34', 0);
+INSERT INTO `t_role_perm` VALUES (90, 1, 16, '2021-07-08 13:37:34', '2021-07-08 13:37:34', 0);
+INSERT INTO `t_role_perm` VALUES (91, 1, 17, '2021-07-08 13:37:34', '2021-07-08 13:37:34', 0);
+INSERT INTO `t_role_perm` VALUES (92, 1, 18, '2021-07-08 13:37:34', '2021-07-08 13:37:34', 0);
+INSERT INTO `t_role_perm` VALUES (93, 1, 19, '2021-07-08 13:37:34', '2021-07-08 13:37:34', 0);
+INSERT INTO `t_role_perm` VALUES (94, 1, 20, '2021-07-08 13:37:34', '2021-07-08 13:37:34', 0);
 
 -- ----------------------------
 -- Table structure for t_user
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `login_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `real_name` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
-  `english_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '英文名',
-  `email` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
-  `telephone` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电话',
-  `job_no` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '工号',
-  `password` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '登录密码',
-  `gender` tinyint(2) NULL DEFAULT NULL COMMENT '性别=={\\\"0\\\":\\\"男\\\",\\\"1\\\":\\\"女\\\"}',
-  `birth_day` date NULL DEFAULT NULL COMMENT '出生日期',
-  `head_img` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
-  `address` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '住址',
-  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  `delete_status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '删除状态=={\\\"0\\\":\\\"正常\\\",\\\"1\\\":\\\"禁用\\\"}',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = COMPACT;
+                           `id` int(11) NOT NULL AUTO_INCREMENT,
+                           `login_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                           `real_name` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
+                           `english_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '英文名',
+                           `email` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
+                           `telephone` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电话',
+                           `job_no` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '工号',
+                           `password` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '登录密码',
+                           `gender` tinyint(2) NULL DEFAULT NULL COMMENT '性别=={\\\"0\\\":\\\"男\\\",\\\"1\\\":\\\"女\\\"}',
+                           `birth_day` date NULL DEFAULT NULL COMMENT '出生日期',
+                           `head_img` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
+                           `address` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '住址',
+                           `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                           `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+                           `delete_status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '删除状态=={\\\"0\\\":\\\"正常\\\",\\\"1\\\":\\\"禁用\\\"}',
+                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of t_user
@@ -257,14 +274,14 @@ INSERT INTO `t_user` VALUES (2, 'admin', '管理员', NULL, NULL, NULL, '1', '$2
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_role`;
 CREATE TABLE `t_user_role`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL COMMENT '用户id',
-  `role_id` int(11) NOT NULL COMMENT '角色ID',
-  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
-  `delete_status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '删除状态=={\\\"0\\\":\\\"正常\\\",\\\"1\\\":\\\"禁用\\\"}',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户角色关联表' ROW_FORMAT = COMPACT;
+                                `id` int(11) NOT NULL AUTO_INCREMENT,
+                                `user_id` int(11) NOT NULL COMMENT '用户id',
+                                `role_id` int(11) NOT NULL COMMENT '角色ID',
+                                `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+                                `delete_status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '删除状态=={\\\"0\\\":\\\"正常\\\",\\\"1\\\":\\\"禁用\\\"}',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户角色关联表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of t_user_role
