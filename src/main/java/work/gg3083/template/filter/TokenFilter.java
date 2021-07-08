@@ -1,6 +1,7 @@
 package work.gg3083.template.filter;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -20,8 +21,10 @@ import work.gg3083.template.commom.CommonConst;
 import work.gg3083.template.config.SpringContextUtil;
 import work.gg3083.template.entity.enums.TokenVerifyEnum;
 import work.gg3083.template.entity.json.JsonBack;
+import work.gg3083.template.entity.vo.UserVO;
 import work.gg3083.template.exception.MyException;
 import work.gg3083.template.exception.MyExceptionType;
+import work.gg3083.template.service.IUserService;
 import work.gg3083.template.util.TokenUtil;
 import work.gg3083.template.util.json.JsonUtil;
 
@@ -146,9 +149,13 @@ public class TokenFilter extends BasicAuthenticationFilter {
         return TokenUtil.validationToken(jsonWebToken, base64Secret);
     }
 
+//    @Autowired
+//    private IUserService userService;
+
 
 
     private boolean setAuth(String userId){
+
         ICache<String> cache = SpringContextUtil.getBean(ICache.class);
         List<String> auths = cache.get(userId);
         Collection<GrantedAuthority> authorities = new ArrayList<>();
@@ -157,7 +164,18 @@ public class TokenFilter extends BasicAuthenticationFilter {
                 authorities.add(new SimpleGrantedAuthority(item));
             });
         }else {
-            return false;
+            final String activeProfile = SpringContextUtil.getApplicationContext().getEnvironment().getActiveProfiles()[0];
+            log.info("当前运行的环境为: {}", activeProfile);
+            if (Objects.equals(activeProfile, "dev")){
+                IUserService  userService = SpringContextUtil.getBean(IUserService.class);
+                final UserVO userVO = userService.findUserVoByUserId(userId);
+                userVO.getPermList().forEach(item->{
+                    authorities.add(new SimpleGrantedAuthority(item));
+                });
+            }else {
+                return false;
+            }
+
         }
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userId, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
