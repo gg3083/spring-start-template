@@ -5,6 +5,7 @@ server:
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mysql://121.4.115.56:3308/perm_template?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
     url: jdbc:mysql://127.0.0.1:3306/perm_template?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: Qwe123.0
@@ -31,7 +32,7 @@ mybatis-plus:
 
 logging:
   level:
-    work.gg3083.template.mapper : info
+    work.gg3083.template.mapper : debug
 
 # token验证
 jwt:

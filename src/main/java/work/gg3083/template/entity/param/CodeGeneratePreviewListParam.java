@@ -10,6 +10,7 @@ import java.util.List;
  */
 @Data
 public class CodeGeneratePreviewListParam {
-    private String key;
-    private List<CodeGeneratePreviewParam> value;
+    private String tableName;
+    private List<String> paramBtn;
+    private List<CodeGeneratePreviewParam> paramList;
 }

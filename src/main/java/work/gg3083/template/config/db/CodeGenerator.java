@@ -19,7 +19,8 @@ public class CodeGenerator {
 //            "t_user",
 //            "t_role_perm",
 //            "t_permissions",
-            "t_alipay_order",
+            "t_recipe",
+            "t_item",
     };
 
     final static String packageName = "work.gg3083.template";
